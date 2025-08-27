@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
+    const homeButton = document.getElementById('home-button');
     const navLinks = document.querySelectorAll('.nav-links a');
     const navMenu = document.querySelector('.nav-links');
     const burgerMenu = document.getElementById('burger-menu');
@@ -158,6 +159,15 @@ document.addEventListener('DOMContentLoaded', () => {
     } else {
         showPage(initialPageId);
     }
+
+    homeButton.addEventListener('click', (event) => {
+        event.preventDefault();
+        window.location.hash = 'home';
+        if (window.innerWidth <= 1160) {
+            navMenu.classList.remove('active');
+            burgerMenu.classList.remove('active');
+        }
+    });
 
     burgerMenu.addEventListener('click', () => {
         navMenu.classList.toggle('active');
