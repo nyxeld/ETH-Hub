@@ -18,6 +18,9 @@ document.addEventListener('DOMContentLoaded', () => {
         party: 'party.jpg',
     };
 
+    let animatedImage = null; // Variable to store the currently animated image
+    let isReversing = false;
+
     const updateBackground = (pageId) => {
         const imageUrl = backgroundImages[pageId];
         if (imageUrl) {
@@ -54,6 +57,57 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const resetImageStyles = (immediate = false) => {
+        if (!animatedImage) return;
+
+        // Animate the reset if not immediate
+        if (!immediate) {
+            animatedImage.style.transition = `transform 0.4s ease-in-out, filter 0.4s ease-in-out`;
+            animatedImage.style.transform = '';
+            animatedImage.style.zIndex = '';
+            animatedImage.style.position = '';
+            animatedImage.style.left = '';
+            animatedImage.style.top = '';
+            animatedImage.style.margin = '';
+            animatedImage.style.filter = '';
+            
+            // Wait for transition to finish before clearing the reference
+            setTimeout(() => {
+                animatedImage = null;
+                isReversing = false;
+            }, 400);
+
+        } else {
+            // Immediately reset styles for the initial state before animating back out
+            animatedImage.style.transition = 'none'; // Disable transition for the immediate change
+            animatedImage.style.transform = `translate(${animatedImage.dataset.translateX}px, ${animatedImage.dataset.translateY}px) scale(${animatedImage.dataset.scale})`;
+            animatedImage.style.zIndex = '9999';
+            animatedImage.style.position = 'fixed';
+            animatedImage.style.left = `${animatedImage.dataset.left}px`;
+            animatedImage.style.top = `${animatedImage.dataset.top}px`;
+            animatedImage.style.margin = '0';
+            animatedImage.style.filter = `contrast(0.7)`;
+
+            // Force a reflow to apply the non-transitioned styles
+            animatedImage.offsetHeight; 
+
+            // Now, apply the transition and reset the transform
+            animatedImage.style.transition = `transform 0.4s ease-in-out, filter 0.4s ease-in-out`;
+            animatedImage.style.transform = '';
+            animatedImage.style.zIndex = '';
+            animatedImage.style.position = '';
+            animatedImage.style.left = '';
+            animatedImage.style.top = '';
+            animatedImage.style.margin = '';
+            animatedImage.style.filter = '';
+
+            setTimeout(() => {
+                animatedImage = null;
+                isReversing = false;
+            }, 400);
+        }
+    };
+
     const initialPageId = window.location.hash.substring(1) || 'home';
     showPage(initialPageId);
 
@@ -81,9 +135,15 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('hashchange', () => {
         const pageId = window.location.hash.substring(1);
         showPage(pageId);
+        
+        // Trigger the zoom-out animation when returning to the home page
+        if (pageId === 'home' && animatedImage) {
+            isReversing = true;
+            resetImageStyles(true); // Call with `true` to trigger the zoom-out
+        }
     });
 
-    // Corrected code to apply animation to all 'memes' images and center them
+    // Code for meme image animation
     const memesImages = document.querySelectorAll('.memes');
 
     memesImages.forEach(imageButton => {
@@ -91,8 +151,14 @@ document.addEventListener('DOMContentLoaded', () => {
             event.preventDefault();
 
             const link = event.target.closest('a');
+            const href = link.getAttribute('href');
             const pageId = link.dataset.page;
             const imgElement = imageButton;
+
+            // Only animate if another animation isn't in progress
+            if (isReversing) return;
+
+            animatedImage = imgElement;
 
             const rect = imgElement.getBoundingClientRect();
             const imageCenterX = rect.left + rect.width / 2;
@@ -104,23 +170,32 @@ document.addEventListener('DOMContentLoaded', () => {
             const translateX = screenCenterX - imageCenterX;
             const translateY = screenCenterY - imageCenterY;
 
-            imgElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(4)`;
+            const scaleX = window.innerWidth / rect.width;
+            const scaleY = window.innerHeight / rect.height;
+            const scale = Math.max(scaleX, scaleY);
+            
+            // Store the initial state in data attributes
+            imgElement.dataset.left = rect.left;
+            imgElement.dataset.top = rect.top;
+            imgElement.dataset.translateX = translateX;
+            imgElement.dataset.translateY = translateY;
+            imgElement.dataset.scale = scale;
+
+            imgElement.style.transition = `transform 0.4s ease-in-out, filter 0.4s ease-in-out`;
+            imgElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
             imgElement.style.zIndex = '9999';
             imgElement.style.position = 'fixed';
             imgElement.style.left = `${rect.left}px`;
             imgElement.style.top = `${rect.top}px`;
             imgElement.style.margin = '0';
+            imgElement.style.filter = `contrast(0.7)`;
 
             setTimeout(() => {
-                window.location.hash = pageId;
-
-                imgElement.style.transform = '';
-                imgElement.style.zIndex = '';
-                imgElement.style.position = '';
-                imgElement.style.left = '';
-                imgElement.style.top = '';
-                imgElement.style.margin = '';
-                
+                if (pageId) {
+                    window.location.hash = pageId;
+                } else if (href) {
+                    window.location.href = href;
+                }
             }, 400);
         });
     });
