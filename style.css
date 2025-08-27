@@ -124,23 +124,16 @@ body {
     width: 25vw;
     border-radius: 15px;
     border: 2px solid black;
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out; /* Add transition for smooth animation */
+    /* Remove the initial transform: scale(1) here if you want it to start from its natural size */
 }
 
-/* Animation for image zoom */
-.memes.zoom-out {
-    animation: zoomOut 0.4s forwards ease-in-out;
-    cursor: default;
-}
-
-@keyframes zoomOut {
+@keyframes zoomOut { /* This keyframe is now only for opacity, or can be removed if handled by JS */
     0% {
-        /* Start at the original position */
-        transform: scale(1);
+        opacity: 1;
     }
     100% {
-        /* Use a combination of scale and translate to move to the center */
-        transform: translate(calc(50vw - 50%), calc(50vh - 50%)) scale(4);
-        opacity: 1;
+        opacity: 1; /* Keep it visible */
     }
 }
 
