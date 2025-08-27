@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const burgerMenu = document.getElementById('burger-menu');
     const pages = document.querySelectorAll('.page-content');
     const backgroundContainer = document.getElementById('background-container');
-    const iframeContainer = document.querySelector('.iframe-container'); // Get the iframe container
+    const iframeContainer = document.querySelector('.iframe-container');
 
     const backgroundImages = {
         home: 'home.jpg',
@@ -54,7 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    // Initial page load: Check the URL hash for a page ID
     const initialPageId = window.location.hash.substring(1) || 'home';
     showPage(initialPageId);
 
@@ -72,37 +71,57 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.hash = pageId;
             }
 
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 1160) {
                 navMenu.classList.remove('active');
                 burgerMenu.classList.remove('active');
             }
         });
     });
 
-    // Handle hash changes for navigation and direct linking
     window.addEventListener('hashchange', () => {
         const pageId = window.location.hash.substring(1);
         showPage(pageId);
     });
 
-    // ...
-const imageButton = document.querySelector('.memes');
+    // Corrected code to apply animation to all 'memes' images and center them
+    const memesImages = document.querySelectorAll('.memes');
 
-if (imageButton) {
-    imageButton.addEventListener('click', (event) => {
-        event.preventDefault();
+    memesImages.forEach(imageButton => {
+        imageButton.addEventListener('click', (event) => {
+            event.preventDefault();
 
-        const link = event.target.closest('a');
-        const pageId = link.dataset.page;
-        
-        imageButton.classList.add('zoom-out');
+            const link = event.target.closest('a');
+            const pageId = link.dataset.page;
+            const imgElement = imageButton;
 
-        // Listen for the end of the animation
-        imageButton.addEventListener('animationend', () => {
-            // After the animation ends, change the page and clean up
-            window.location.hash = pageId;
-            imageButton.classList.remove('zoom-out');
-        }, { once: true }); // The '{ once: true }' option ensures the event listener is removed after it runs once
+            const rect = imgElement.getBoundingClientRect();
+            const imageCenterX = rect.left + rect.width / 2;
+            const imageCenterY = rect.top + rect.height / 2;
+
+            const screenCenterX = window.innerWidth / 2;
+            const screenCenterY = window.innerHeight / 2;
+
+            const translateX = screenCenterX - imageCenterX;
+            const translateY = screenCenterY - imageCenterY;
+
+            imgElement.style.transform = `translate(${translateX}px, ${translateY}px) scale(4)`;
+            imgElement.style.zIndex = '9999';
+            imgElement.style.position = 'fixed';
+            imgElement.style.left = `${rect.left}px`;
+            imgElement.style.top = `${rect.top}px`;
+            imgElement.style.margin = '0';
+
+            setTimeout(() => {
+                window.location.hash = pageId;
+
+                imgElement.style.transform = '';
+                imgElement.style.zIndex = '';
+                imgElement.style.position = '';
+                imgElement.style.left = '';
+                imgElement.style.top = '';
+                imgElement.style.margin = '';
+                
+            }, 400);
+        });
     });
-}
 });
