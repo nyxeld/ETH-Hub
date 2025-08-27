@@ -180,7 +180,7 @@ iframe {
 @media (max-width: 1160px) {
     .home-button {
         display: block;
-        padding: 10px; /* Add some padding for better touch area */
+        padding: 10px;
     }
 
     .burger-menu {
@@ -188,8 +188,8 @@ iframe {
     }
 
     .top-bar {
-        padding: 10px 20px; /* Thinner bar */
-        justify-content: space-between; /* Align home button left and burger menu right */
+        padding: 3px 20px;
+        justify-content: space-between;
         top: auto;
         bottom: 0;
     }
