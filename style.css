@@ -20,7 +20,7 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    z-index: -2; /* Ensure this is below all content */
+    z-index: -2;
     filter: contrast(0.7);
 }
 
@@ -37,6 +37,24 @@ body {
     display: flex;
     justify-content: space-between;
     align-items: center;
+}
+
+/* Home Button - Now visible by default for desktop */
+.home-button {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+}
+
+.home-button a img {
+    height: 24px;
+    width: auto;
+    transition: transform 0.3s ease;
+}
+
+.home-button a:hover img {
+    transform: scale(1.1);
 }
 
 /* Burger Menu Button - Hidden on desktop */
@@ -88,14 +106,14 @@ body {
 }
 
 .nav-links a img {
-    height: 24px; /* Set a fixed height for the icon */
-    width: auto; /* Maintain the image's aspect ratio */
-    vertical-align: middle; /* Align the icon with the text if there are other links */
-    transition: transform 0.3s ease; /* Add a smooth hover effect */
+    height: 24px;
+    width: auto;
+    vertical-align: middle;
+    transition: transform 0.3s ease;
 }
 
 .nav-links a:hover img {
-    transform: scale(1.1); /* Slightly enlarge the image on hover */
+    transform: scale(1.1);
 }
 
 .nav-links a.active-link {
@@ -105,15 +123,15 @@ body {
 
 /* Page Content Container */
 .content-container {
-    padding-top: 54px; /* Adjust to match the top bar height */
+    padding-top: 54px;
     padding-left: 20px;
     padding-right: 20px;
 }
 
 .page-content {
     display: none;
-    z-index: 1; /* This will make sure content is above the iframe */
-    position: relative; /* Required for z-index to work */
+    z-index: 1;
+    position: relative;
 }
 
 .page-content.active {
@@ -123,30 +141,27 @@ body {
 .memes {
     height: 25vh;
     border-radius: 15px;
-    /* border: 2px solid black; */
-    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out; /* Add transition for smooth animation */
-    /* Remove the initial transform: scale(1) here if you want it to start from its natural size */
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
 }
 
-@keyframes zoomOut { /* This keyframe is now only for opacity, or can be removed if handled by JS */
+@keyframes zoomOut {
     0% {
         opacity: 1;
     }
     100% {
-        opacity: 1; /* Keep it visible */
+        opacity: 1;
     }
 }
 
 /* Iframe container to handle dynamic sizing */
 .iframe-container {
-    /* Initially hidden to avoid flickering */
     display: none;
     position: fixed;
-    top: 54px; /* Desktop top bar height */
+    top: 54px;
     left: 0;
     width: 100vw;
-    height: calc(100vh - 70px); /* Desktop height calculation */
-    z-index: -1; /* Place below other page content */
+    height: calc(100vh - 70px);
+    z-index: -1;
 }
 
 /* Show the iframe container only when its parent page is active */
@@ -163,21 +178,34 @@ iframe {
 
 /* --- Media Query for Mobile Devices --- */
 @media (max-width: 1160px) {
+    .home-button {
+        display: block;
+        padding: 10px; /* Add some padding for better touch area */
+    }
+
     .burger-menu {
         display: block;
     }
-    
+
+    .top-bar {
+        padding: 10px 20px; /* Thinner bar */
+        justify-content: space-between; /* Align home button left and burger menu right */
+        top: auto;
+        bottom: 0;
+    }
+
     .nav-links {
         display: none;
         width: 100%;
         position: absolute;
-        top: 100%; /* Change this line */
+        top: auto;
+        bottom: 100%;
         left: 0;
         background-color: #333;
         flex-direction: column;
         text-align: center;
-        overflow-y: auto; /* Add this line to enable scrolling */
-        max-height: calc(100vh - 54px); /* Optional: This calculates the remaining viewport height, subtracting the top bar height. Adjust 54px as needed to match the height of your desktop top bar. You might need to change it to match the mobile height which is 79px, so it would be `max-height: calc(100vh - 79px);` */
+        overflow-y: auto;
+        max-height: calc(100vh - 79px);
     }
 
     .nav-links.active {
@@ -224,11 +252,13 @@ iframe {
     }
 
     .content-container {
-        padding-top: 79px; /* **Updated** to match mobile top bar height */
+        padding-top: 20px;
+        padding-bottom: 79px;
     }
-    
+
     /* Adjust iframe container for mobile */
     .iframe-container {
-        top: 79px; /* Mobile top bar height */
+        top: 20px;
+        height: calc(100vh - 99px);
     }
 }
