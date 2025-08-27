@@ -5,7 +5,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const burgerMenu = document.getElementById('burger-menu');
     const pages = document.querySelectorAll('.page-content');
     const backgroundContainer = document.getElementById('background-container');
-    const iframeContainer = document.querySelector('.iframe-container');
 
     const backgroundImages = {
         home: 'home.jpg',
@@ -19,8 +18,8 @@ document.addEventListener('DOMContentLoaded', () => {
         party: 'party.jpg',
     };
     
-    // Define the list of pages that have an animation associated with them
-    const animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics'];
+    // All pages will have the animation now, excluding external links
+    const animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'party'];
 
     let animatedImage = null;
     let isReversing = false;
@@ -78,7 +77,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }
         
-        // Only reset meme image styles if we are not in the middle of a reversal animation
         if (!isReversing) {
             if (pageId === 'home') {
                 resetOtherMemeImages(null);
@@ -175,7 +173,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     const animateTransition = (pageId, href, imgElement) => {
-        if (isReversing || !animatablePages.includes(pageId) || !imgElement) {
+        if (isReversing || !imgElement || !animatablePages.includes(pageId)) {
             if (pageId) {
                 window.location.hash = pageId;
             } else if (href) {
@@ -244,7 +242,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if (link && imgElement) {
             animateTransition(pageId, null, imgElement);
         } else {
-            // Fallback for pages without an animatable image link on the home page
             window.location.hash = pageId;
         }
     };
@@ -258,19 +255,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const currentPageId = window.location.hash.substring(1);
             
             if (animatablePages.includes(currentPageId) && animatablePages.includes(pageId)) {
-                // If on an animatable page and navigating to another animatable page,
-                // first reverse the animation to 'home', then start the new one.
                 isReversing = true;
                 
                 resetImageStyles(true, () => {
-                    // This callback runs after the reverse animation is complete
                     window.location.hash = 'home';
                     setTimeout(() => {
                         startNewTransition(pageId);
-                    }, 10); // A small delay to ensure the hashchange event has processed
+                    }, 10);
                 });
             } else {
-                // For all other cases, perform the standard transition
                 const imgElement = document.querySelector(`a[data-page="${pageId}"] .memes`);
                 animateTransition(pageId, href, imgElement);
             }
