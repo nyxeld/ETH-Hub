@@ -138,8 +138,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
-    const initialPageId = window.location.hash.substring(1) || 'home';
+    const initialPageId = window.location.hash.substring(1);
+
+if (!initialPageId) {
+    // If no hash is present, set it to #home and reload the page
+    // or call showPage directly after setting the hash.
+    window.location.hash = 'home';
+    // The hashchange event listener will now handle showing the page.
+} else {
+    // If a hash exists, show the corresponding page.
     showPage(initialPageId);
+}
 
     burgerMenu.addEventListener('click', () => {
         navMenu.classList.toggle('active');
