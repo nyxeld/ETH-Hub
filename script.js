@@ -5,6 +5,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const burgerMenu = document.getElementById('burger-menu');
     const pages = document.querySelectorAll('.page-content');
     const backgroundContainer = document.getElementById('background-container');
+    const memesImages = document.querySelectorAll('.memes');
+
+    // Create a new div element for the overlay
+    const overlay = document.createElement('div');
+    overlay.id = 'animation-overlay';
+    document.body.appendChild(overlay);
 
     const backgroundImages = {
         home: 'home.jpg',
@@ -24,6 +30,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let isReversing = false;
     let placeholder = null;
     let originalParent = null;
+
+    // Helper function to lock the UI
+    const lockUI = () => {
+        overlay.style.display = 'block';
+    };
+
+    // Helper function to unlock the UI
+    const unlockUI = () => {
+        overlay.style.display = 'none';
+    };
 
     const updateBackground = (pageId, animatedImageElement = null) => {
         let imageUrl;
@@ -107,6 +123,7 @@ document.addEventListener('DOMContentLoaded', () => {
             animatedImage.removeAttribute('data-page-id');
             animatedImage = null;
             isReversing = false;
+            unlockUI(); // Unlock the UI after the transition is complete
             
             if (callback) {
                 callback();
@@ -162,6 +179,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (pageId === 'home' && animatedImage) {
             isReversing = true;
+            lockUI(); // Lock the UI for the reversal animation
             resetImageStyles(true);
         }
     };
@@ -179,6 +197,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     homeButton.addEventListener('click', (event) => {
         event.preventDefault();
+        // The check below ensures that if an animation is already in progress, the button is not clickable
+        if (overlay.style.display === 'block') {
+            return;
+        }
+
         window.location.hash = 'home';
         if (window.innerWidth <= 1160) {
             navMenu.classList.remove('active');
@@ -187,11 +210,20 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     burgerMenu.addEventListener('click', () => {
+        // The check below ensures that if an animation is already in progress, the button is not clickable
+        if (overlay.style.display === 'block') {
+            return;
+        }
         navMenu.classList.toggle('active');
         burgerMenu.classList.toggle('active');
     });
 
     const animateTransition = (pageId, href, imgElement) => {
+        // Check if the UI is locked before starting a new animation
+        if (overlay.style.display === 'block') {
+            return;
+        }
+
         if (isReversing || !imgElement || !animatablePages.includes(pageId)) {
             if (pageId) {
                 window.location.hash = pageId;
@@ -200,6 +232,8 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             return;
         }
+
+        lockUI(); // Lock the UI at the start of the animation
 
         resetOtherMemeImages(imgElement);
         animatedImage = imgElement;
@@ -252,9 +286,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.hash = pageId;
                 setTimeout(() => {
                     window.addEventListener('hashchange', hashChangeHandler);
+                    unlockUI(); // Unlock the UI after the hashchange has been handled
                 }, 0);
             } else if (href) {
                 window.location.href = href;
+                unlockUI(); // Unlock the UI if navigating away
             }
         }, 400);
     };
@@ -279,11 +315,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 return;
             }
 
+            // Check if the UI is locked
+            if (overlay.style.display === 'block') {
+                event.preventDefault();
+                return;
+            }
+
             event.preventDefault();
             
             const currentPageId = window.location.hash.substring(1);
             
             if (animatablePages.includes(currentPageId) && animatablePages.includes(pageId)) {
+                lockUI(); // Lock the UI for the transition
                 window.location.hash = 'home';
                 isReversing = true;
                 
@@ -306,10 +349,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('hashchange', hashChangeHandler);
 
-    const memesImages = document.querySelectorAll('.memes');
-
     memesImages.forEach(imageButton => {
         imageButton.addEventListener('click', (event) => {
+            // Check if the UI is locked
+            if (overlay.style.display === 'block') {
+                event.preventDefault();
+                return;
+            }
+
             const link = event.target.closest('a');
             const href = link.getAttribute('href');
             const pageId = link.dataset.page;
