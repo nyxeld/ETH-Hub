@@ -153,6 +153,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (!initialPageId || initialPageId === 'home') {
         // If there's no hash or it's 'home', just show the home page.
+        window.location.hash = 'home';
         showPage('home');
     } else if (animatablePages.includes(initialPageId)) {
         // If a valid, animatable page is in the URL hash,
