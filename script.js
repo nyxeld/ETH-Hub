@@ -18,7 +18,6 @@ document.addEventListener('DOMContentLoaded', () => {
         party: 'party.jpg',
     };
     
-    // All pages will have the animation now, excluding external links
     const animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'party'];
 
     let animatedImage = null;
@@ -151,10 +150,22 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initialPageId = window.location.hash.substring(1);
-
-    if (!initialPageId) {
+    
+    if (!initialPageId || initialPageId === 'home') {
+        // If there's no hash or it's 'home', just show the home page.
+        showPage('home');
+    } else if (animatablePages.includes(initialPageId)) {
+        // If a valid, animatable page is in the URL hash,
+        // first set the hash to 'home' to load the home page content.
         window.location.hash = 'home';
+        
+        // Then, use a small delay to allow the 'home' page to render
+        // before starting the animation to the intended page.
+        setTimeout(() => {
+            startNewTransition(initialPageId);
+        }, 100); // 100ms delay to ensure the page is ready.
     } else {
+        // For non-animatable pages (e.g., external links, or new pages)
         showPage(initialPageId);
     }
 
@@ -248,20 +259,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
     navLinks.forEach(link => {
         link.addEventListener('click', (event) => {
-            event.preventDefault();
             const pageId = event.target.closest('a').dataset.page;
             const href = event.target.closest('a').getAttribute('href');
+            
+            // Check if it's an external link
+            if (!href.startsWith('#')) {
+                // Let the browser handle the link naturally
+                return;
+            }
+
+            event.preventDefault();
             
             const currentPageId = window.location.hash.substring(1);
             
             if (animatablePages.includes(currentPageId) && animatablePages.includes(pageId)) {
+                window.location.hash = 'home';
                 isReversing = true;
                 
                 resetImageStyles(true, () => {
-                    window.location.hash = 'home';
+                    
                     setTimeout(() => {
                         startNewTransition(pageId);
-                    }, 10);
+                    }, 100);
                 });
             } else {
                 const imgElement = document.querySelector(`a[data-page="${pageId}"] .memes`);
@@ -278,7 +297,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('hashchange', () => {
         const pageId = window.location.hash.substring(1);
         showPage(pageId);
-        
+
         if (pageId === 'home' && animatedImage) {
             isReversing = true;
             resetImageStyles(true);
@@ -289,13 +308,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
     memesImages.forEach(imageButton => {
         imageButton.addEventListener('click', (event) => {
-            event.preventDefault();
-
             const link = event.target.closest('a');
             const href = link.getAttribute('href');
             const pageId = link.dataset.page;
             const imgElement = imageButton;
 
+            // Check if it's an external link
+            if (!href.startsWith('#')) {
+                // Let the browser handle the link naturally
+                return;
+            }
+
+            event.preventDefault();
+            
             if (isReversing) return;
 
             animateTransition(pageId, href, imgElement);
