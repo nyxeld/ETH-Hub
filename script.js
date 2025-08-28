@@ -11,18 +11,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.createElement('div');
     overlay.id = 'animation-overlay';
     document.body.appendChild(overlay);
-
-    const backgroundImages = {
-        home: 'home.jpg',
-        informatik: 'informatik.png',
-        statistik: 'statistik.jpg',
-        PC: 'pc.jpg',
-        OC: 'oc.png',
-        bio: 'biology.jpg',
-        bioanalytics: 'bioanalytics.jpg',
-        nerd: 'nerd.webp',
-        party: 'party.jpg',
-    };
     
     const animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'party'];
 
@@ -31,12 +19,10 @@ document.addEventListener('DOMContentLoaded', () => {
     let placeholder = null;
     let originalParent = null;
 
-    // Helper function to lock the UI
     const lockUI = () => {
         overlay.style.display = 'block';
     };
 
-    // Helper function to unlock the UI
     const unlockUI = () => {
         overlay.style.display = 'none';
     };
@@ -47,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (animatedImageElement) {
             imageUrl = animatedImageElement.src;
         } else {
-            imageUrl = backgroundImages[pageId];
+            imageUrl = "home.jpg";
         }
         if (imageUrl) {
             backgroundContainer.style.backgroundImage = `url('${imageUrl}')`;
@@ -86,19 +72,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!isReversing) {
             if (pageId === 'home') {
                 resetOtherMemeImages(null);
-            } else if (animatedImage) {
-                resetOtherMemeImages(animatedImage);
             } else {
                 resetOtherMemeImages(null);
             }
         }
     };
 
-    const resetImageStyles = (immediate = false, callback = null) => {
-        if (!animatedImage) {
-             if (callback) callback();
-             return;
-        }
+    const resetImageStyles = (callback = null) => {
 
         const cleanUpStyles = () => {
             if (placeholder) {
@@ -123,38 +103,29 @@ document.addEventListener('DOMContentLoaded', () => {
             animatedImage.removeAttribute('data-page-id');
             animatedImage = null;
             isReversing = false;
-            unlockUI(); // Unlock the UI after the transition is complete
+            unlockUI();
             
             if (callback) {
                 callback();
             }
         };
 
-        if (!immediate) {
-            animatedImage.style.transition = `transform 0.2s ease-in-out, filter 0.2s ease-in-out`;
-            animatedImage.style.transform = '';
-            animatedImage.style.filter = '';
-            
-            setTimeout(cleanUpStyles, 200);
+        animatedImage.style.transition = 'none';
+        animatedImage.style.transform = `translate(${animatedImage.dataset.translateX}px, ${animatedImage.dataset.translateY}px) scale(${animatedImage.dataset.scale})`;
+        animatedImage.style.zIndex = '9999';
+        animatedImage.style.position = 'fixed';
+        animatedImage.style.left = `${animatedImage.dataset.left}px`;
+        animatedImage.style.top = `${animatedImage.dataset.top}px`;
+        animatedImage.style.margin = '0';
+        animatedImage.style.filter = `contrast(0.7)`;
 
-        } else {
-            animatedImage.style.transition = 'none';
-            animatedImage.style.transform = `translate(${animatedImage.dataset.translateX}px, ${animatedImage.dataset.translateY}px) scale(${animatedImage.dataset.scale})`;
-            animatedImage.style.zIndex = '9999';
-            animatedImage.style.position = 'fixed';
-            animatedImage.style.left = `${animatedImage.dataset.left}px`;
-            animatedImage.style.top = `${animatedImage.dataset.top}px`;
-            animatedImage.style.margin = '0';
-            animatedImage.style.filter = `contrast(0.7)`;
+        animatedImage.offsetHeight; 
 
-            animatedImage.offsetHeight; 
+        animatedImage.style.transition = `transform 0.2s ease-in-out, filter 0.2s ease-in-out`;
+        animatedImage.style.transform = '';
+        animatedImage.style.filter = '';
 
-            animatedImage.style.transition = `transform 0.2s ease-in-out, filter 0.2s ease-in-out`;
-            animatedImage.style.transform = '';
-            animatedImage.style.filter = '';
-
-            setTimeout(cleanUpStyles, 200);
-        }
+        setTimeout(cleanUpStyles, 200);
     };
 
     const resetOtherMemeImages = (currentAnimatedImage) => {
@@ -179,8 +150,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if (pageId === 'home' && animatedImage) {
             isReversing = true;
-            lockUI(); // Lock the UI for the reversal animation
-            resetImageStyles(true);
+            lockUI();
+            resetImageStyles();
         }
     };
 
@@ -197,23 +168,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
     homeButton.addEventListener('click', (event) => {
         event.preventDefault();
-        // The check below ensures that if an animation is already in progress, the button is not clickable
-        if (overlay.style.display === 'block') {
-            return;
-        }
 
         window.location.hash = 'home';
-        if (window.innerWidth <= 1160) {
-            navMenu.classList.remove('active');
-            burgerMenu.classList.remove('active');
-        }
     });
 
     burgerMenu.addEventListener('click', () => {
-        // The check below ensures that if an animation is already in progress, the button is not clickable
-        if (overlay.style.display === 'block') {
-            return;
-        }
         navMenu.classList.toggle('active');
         burgerMenu.classList.toggle('active');
     });
@@ -224,21 +183,14 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
 
-        if (isReversing || !imgElement || !animatablePages.includes(pageId)) {
-            if (pageId) {
-                window.location.hash = pageId;
-            } else if (href) {
-                window.location.href = href;
-            }
-            return;
-        }
-
         lockUI(); // Lock the UI at the start of the animation
 
         resetOtherMemeImages(imgElement);
         animatedImage = imgElement;
         
         originalParent = animatedImage.parentNode;
+
+        //Make the placeholder to make sure the formatting stays consistent
         const computedStyle = window.getComputedStyle(animatedImage);
         const rect = animatedImage.getBoundingClientRect();
         
@@ -286,12 +238,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.hash = pageId;
                 setTimeout(() => {
                     window.addEventListener('hashchange', hashChangeHandler);
-                    unlockUI(); // Unlock the UI after the hashchange has been handled
                 }, 0);
             } else if (href) {
-                window.location.href = href;
-                unlockUI(); // Unlock the UI if navigating away
+                window.open(href);
+                //Placeholder, not ideal but it works
+                location.reload();
             }
+            unlockUI();
         }, 200);
     };
 
@@ -310,10 +263,6 @@ document.addEventListener('DOMContentLoaded', () => {
         link.addEventListener('click', (event) => {
             const pageId = event.target.closest('a').dataset.page;
             const href = event.target.closest('a').getAttribute('href');
-            
-            if (!href.startsWith('#')) {
-                return;
-            }
 
             // Check if the UI is locked
             if (overlay.style.display === 'block') {
@@ -330,7 +279,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.hash = 'home';
                 isReversing = true;
                 
-                resetImageStyles(true, () => {
+                resetImageStyles( () => {
                     setTimeout(() => {
                         startNewTransition(pageId);
                     }, 100);
@@ -361,10 +310,6 @@ document.addEventListener('DOMContentLoaded', () => {
             const href = link.getAttribute('href');
             const pageId = link.dataset.page;
             const imgElement = imageButton;
-
-            if (!href.startsWith('#')) {
-                return;
-            }
 
             event.preventDefault();
             
