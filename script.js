@@ -25,32 +25,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let placeholder = null;
     let originalParent = null;
 
-    const updateBackground = (pageId) => {
-        const imageUrl = backgroundImages[pageId];
+    const updateBackground = (pageId, animatedImageElement = null) => {
+        let imageUrl;
+
+        if (animatedImageElement) {
+            imageUrl = animatedImageElement.src;
+        } else {
+            imageUrl = backgroundImages[pageId];
+        }
         if (imageUrl) {
             backgroundContainer.style.backgroundImage = `url('${imageUrl}')`;
         } else {
             backgroundContainer.style.backgroundImage = 'none';
         }
     };
-
-    const resetOtherMemeImages = (currentAnimatedImage) => {
-        document.querySelectorAll('.memes').forEach(img => {
-            if (img !== currentAnimatedImage) {
-                img.style.transition = '';
-                img.style.transform = '';
-                img.style.zIndex = '';
-                img.style.position = '';
-                img.style.left = '';
-                img.style.top = '';
-                img.style.margin = '';
-                img.style.filter = '';
-                img.style.display = '';
-            }
-        });
-    };
     
-    const showPage = (pageId) => {
+    const showPage = (pageId, animatedImageElement = null) => {
         pages.forEach(page => {
             page.classList.remove('active');
         });
@@ -62,7 +52,7 @@ document.addEventListener('DOMContentLoaded', () => {
         const nextPage = document.getElementById(pageId);
         if (nextPage) {
             nextPage.classList.add('active');
-            updateBackground(pageId);
+            updateBackground(pageId, animatedImageElement);
             const activeLink = document.querySelector(`.nav-links a[data-page="${pageId}"]`);
             if (activeLink) {
                 activeLink.classList.add('active-link');
@@ -150,12 +140,38 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     };
 
+    const resetOtherMemeImages = (currentAnimatedImage) => {
+        document.querySelectorAll('.memes').forEach(img => {
+            if (img !== currentAnimatedImage) {
+                img.style.transition = '';
+                img.style.transform = '';
+                img.style.zIndex = '';
+                img.style.position = '';
+                img.style.left = '';
+                img.style.top = '';
+                img.style.margin = '';
+                img.style.filter = '';
+                img.style.display = '';
+            }
+        });
+    };
+    
+    const hashChangeHandler = () => {
+        const pageId = window.location.hash.substring(1);
+        showPage(pageId);
+
+        if (pageId === 'home' && animatedImage) {
+            isReversing = true;
+            resetImageStyles(true);
+        }
+    };
+
     const initialPageId = window.location.hash.substring(1);
         if (animatablePages.includes(initialPageId)) {
         window.location.hash = 'home';
         setTimeout(() => {
             startNewTransition(initialPageId);
-        }, 100); // 100ms delay to ensure the page is ready.
+        }, 100); 
     } else {
         window.location.hash = 'home';
         showPage('home');
@@ -231,7 +247,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         setTimeout(() => {
             if (pageId) {
+                window.removeEventListener('hashchange', hashChangeHandler);
+                showPage(pageId, imgElement);
                 window.location.hash = pageId;
+                setTimeout(() => {
+                    window.addEventListener('hashchange', hashChangeHandler);
+                }, 0);
             } else if (href) {
                 window.location.href = href;
             }
@@ -254,9 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const pageId = event.target.closest('a').dataset.page;
             const href = event.target.closest('a').getAttribute('href');
             
-            // Check if it's an external link
             if (!href.startsWith('#')) {
-                // Let the browser handle the link naturally
                 return;
             }
 
@@ -269,7 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 isReversing = true;
                 
                 resetImageStyles(true, () => {
-                    
                     setTimeout(() => {
                         startNewTransition(pageId);
                     }, 100);
@@ -286,15 +304,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    window.addEventListener('hashchange', () => {
-        const pageId = window.location.hash.substring(1);
-        showPage(pageId);
-
-        if (pageId === 'home' && animatedImage) {
-            isReversing = true;
-            resetImageStyles(true);
-        }
-    });
+    window.addEventListener('hashchange', hashChangeHandler);
 
     const memesImages = document.querySelectorAll('.memes');
 
@@ -305,9 +315,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const pageId = link.dataset.page;
             const imgElement = imageButton;
 
-            // Check if it's an external link
             if (!href.startsWith('#')) {
-                // Let the browser handle the link naturally
                 return;
             }
 

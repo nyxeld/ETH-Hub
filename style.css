@@ -138,10 +138,21 @@ body {
     display: block;
 }
 
+/* Update the parent div of the meme images */
+.memes-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    justify-content: center;
+    align-items: flex-start;
+    padding-top: 20px;
+}
+
 .memes {
     height: 25vh;
     border-radius: 15px;
     transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    display: block;
 }
 
 @keyframes zoomOut {
@@ -205,7 +216,7 @@ iframe {
         flex-direction: column;
         text-align: center;
         overflow-y: auto;
-        max-height: calc(100vh - 79px);
+        max-height: calc(100vh - 120px);
     }
 
     .nav-links.active {
@@ -254,6 +265,13 @@ iframe {
     .content-container {
         padding-top: 20px;
         padding-bottom: 79px;
+    }
+
+    .memes {
+    height: 25vw;
+    border-radius: 15px;
+    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    display: block;
     }
 
     /* Adjust iframe container for mobile */
