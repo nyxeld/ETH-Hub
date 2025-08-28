@@ -131,11 +131,11 @@ document.addEventListener('DOMContentLoaded', () => {
         };
 
         if (!immediate) {
-            animatedImage.style.transition = `transform 0.4s ease-in-out, filter 0.4s ease-in-out`;
+            animatedImage.style.transition = `transform 0.2s ease-in-out, filter 0.2s ease-in-out`;
             animatedImage.style.transform = '';
             animatedImage.style.filter = '';
             
-            setTimeout(cleanUpStyles, 400);
+            setTimeout(cleanUpStyles, 200);
 
         } else {
             animatedImage.style.transition = 'none';
@@ -149,11 +149,11 @@ document.addEventListener('DOMContentLoaded', () => {
 
             animatedImage.offsetHeight; 
 
-            animatedImage.style.transition = `transform 0.4s ease-in-out, filter 0.4s ease-in-out`;
+            animatedImage.style.transition = `transform 0.2s ease-in-out, filter 0.2s ease-in-out`;
             animatedImage.style.transform = '';
             animatedImage.style.filter = '';
 
-            setTimeout(cleanUpStyles, 400);
+            setTimeout(cleanUpStyles, 200);
         }
     };
 
@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animatedImage.style.top = `${rect.top}px`;
         animatedImage.style.margin = '0';
         
-        animatedImage.style.transition = `transform 0.4s ease-in-out, filter 0.4s ease-in-out`;
+        animatedImage.style.transition = `transform 0.2s ease-in-out, filter 0.2s ease-in-out`;
         animatedImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
         animatedImage.style.filter = `contrast(0.7)`;
 
@@ -292,7 +292,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 window.location.href = href;
                 unlockUI(); // Unlock the UI if navigating away
             }
-        }, 400);
+        }, 200);
     };
 
     const startNewTransition = (pageId) => {

@@ -151,7 +151,7 @@ body {
 .memes {
     height: 25vh;
     border-radius: 15px;
-    transition: transform 0.4s ease-in-out, opacity 0.4s ease-in-out;
+    transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
     display: block;
 }
 
