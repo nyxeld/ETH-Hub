@@ -70,6 +70,7 @@ document.addEventListener('DOMContentLoaded', () => {
         } else {
             document.getElementById('home').classList.add('active');
             updateBackground('home');
+            window.location.hash = 'home';
             const homeLink = document.querySelector('.nav-links a[data-page="home"]');
             if (homeLink) {
                 homeLink.classList.add('active-link');
@@ -150,24 +151,14 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initialPageId = window.location.hash.substring(1);
-    
-    if (!initialPageId || initialPageId === 'home') {
-        // If there's no hash or it's 'home', just show the home page.
+        if (animatablePages.includes(initialPageId)) {
         window.location.hash = 'home';
-        showPage('home');
-    } else if (animatablePages.includes(initialPageId)) {
-        // If a valid, animatable page is in the URL hash,
-        // first set the hash to 'home' to load the home page content.
-        window.location.hash = 'home';
-        
-        // Then, use a small delay to allow the 'home' page to render
-        // before starting the animation to the intended page.
         setTimeout(() => {
             startNewTransition(initialPageId);
         }, 100); // 100ms delay to ensure the page is ready.
     } else {
-        // For non-animatable pages (e.g., external links, or new pages)
-        showPage(initialPageId);
+        window.location.hash = 'home';
+        showPage('home');
     }
 
     homeButton.addEventListener('click', (event) => {
