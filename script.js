@@ -11,6 +11,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const overlay = document.createElement('div');
     overlay.id = 'animation-overlay';
     document.body.appendChild(overlay);
+
+    const backgroundImages = {
+        home: 'home.webp',
+        informatik: 'informatik.webp',
+        statistik: 'statistik.webp',
+        PC: 'pc.webp',
+        OC: 'oc.webp',
+        bio: 'biology.webp',
+        bioanalytics: 'bioanalytics.webp',
+        nerd: 'nerd.webp',
+        party: 'party.webp',
+    };
     
     const animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'party'];
 
@@ -33,7 +45,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (animatedImageElement) {
             imageUrl = animatedImageElement.src;
         } else {
-            imageUrl = "home.jpg";
+            imageUrl = backgroundImages[pageId];
         }
         if (imageUrl) {
             backgroundContainer.style.backgroundImage = `url('${imageUrl}')`;
@@ -85,10 +97,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 placeholder.remove();
                 placeholder = null;
             }
-
-            if (originalParent) {
+            if (originalParent && animatedImage) {
                 originalParent.appendChild(animatedImage);
-            }
             
             animatedImage.style.transition = '';
             animatedImage.style.transform = '';
@@ -99,8 +109,9 @@ document.addEventListener('DOMContentLoaded', () => {
             animatedImage.style.margin = '';
             animatedImage.style.filter = '';
             animatedImage.style.display = '';
-            
             animatedImage.removeAttribute('data-page-id');
+            }
+            
             animatedImage = null;
             isReversing = false;
             unlockUI();
@@ -156,11 +167,11 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const initialPageId = window.location.hash.substring(1);
-        if (animatablePages.includes(initialPageId)) {
+    if (animatablePages.includes(initialPageId)) {
         window.location.hash = 'home';
         setTimeout(() => {
             startNewTransition(initialPageId);
-        }, 100); 
+        }, 0); 
     } else {
         window.location.hash = 'home';
         showPage('home');
@@ -168,7 +179,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     homeButton.addEventListener('click', (event) => {
         event.preventDefault();
-
         window.location.hash = 'home';
     });
 
