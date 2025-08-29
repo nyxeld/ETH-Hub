@@ -181,8 +181,8 @@ document.addEventListener('DOMContentLoaded', () => {
         button.addEventListener('click', (event) => {
             event.preventDefault();
             window.location.hash = 'home';
-            navMenu.classList.toggle('active');
-            burgerMenu.classList.toggle('active');
+            navMenu.classList.remove('active');
+            burgerMenu.classList.remove('active');
         });
     });
 

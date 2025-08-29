@@ -27,6 +27,7 @@ body {
 /* Top Navigation Bar */
 .top-bar {
     background-color: #333;
+    opacity: 0.93;
     color: white;
     padding: 15px 20px;
     position: fixed;
@@ -42,6 +43,7 @@ body {
 .bottom-bar {
     display: none;
     background-color: #333;
+    opacity: 0.93;
     color: white;
     padding: 3px 20px;
     position: fixed;
@@ -251,6 +253,8 @@ iframe {
 
     .nav-links.active {
         display: flex;
+        border-bottom: 2px solid #444;
+        border-top: 2px solid #444;
     }
 
     .nav-links ul li a.active-link {
@@ -261,19 +265,17 @@ iframe {
     .nav-links ul {
         align-items: end;
         background-color: #333;
+        opacity: 0.98;
         flex-direction: column;
         width: 100%;
         padding: 0;
         margin: 0;
         gap: 0;
-        border-bottom: 2px solid #444;
-        border-top: 2px solid #444;
     }
 
     .nav-links ul li {
         width: 100%;
         margin: 0;
-        /* border-bottom: 1px solid #444; */
         border-top: 1px solid #444;
     }
 
