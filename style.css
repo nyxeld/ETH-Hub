@@ -241,13 +241,13 @@ iframe {
     display: none;
     position: fixed;
     width: 100%;
-    bottom: 53px;
+    bottom: 55px;
     right: 0;
     background-color: #333;
     flex-direction: column;
     text-align: center;
     overflow-y: auto;
-    max-height: calc(100vh - (48px + 53px));
+    max-height: calc(100vh - 109.8px);
     }
 
     .nav-links.active {
