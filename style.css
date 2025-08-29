@@ -241,13 +241,12 @@ iframe {
     display: none;
     position: fixed;
     width: 100%;
+    top: 53px;
     bottom: 55px;
     right: 0;
-    background-color: #333;
     flex-direction: column;
     text-align: center;
     overflow-y: auto;
-    max-height: calc(100vh - 109.8px);
     }
 
     .nav-links.active {
@@ -255,29 +254,37 @@ iframe {
     }
 
     .nav-links ul li a.active-link {
-        background-color: #444;
-        border-bottom: none;
+        background-color: #575757;
+        border-bottom: 2px solid white;
     }
 
     .nav-links ul {
+        align-items: end;
+        background-color: #333;
         flex-direction: column;
         width: 100%;
         padding: 0;
         margin: 0;
         gap: 0;
+        border-bottom: 2px solid #444;
+        border-top: 2px solid #444;
     }
 
     .nav-links ul li {
         width: 100%;
         margin: 0;
-        border-bottom: 1px solid #444;
+        /* border-bottom: 1px solid #444; */
+        border-top: 1px solid #444;
     }
 
     .nav-links ul li a {
-        display: block;
-        padding: 15px;
-        color: white;
-    }
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    height: max(55px, calc((100vh - 118px) / 8));
+    padding: 0 15px;
+}
 
     /* Burger animation when active */
     .burger-menu.active span:nth-child(1) {
