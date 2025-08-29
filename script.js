@@ -120,7 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 callback();
             }
         };
-
+        
         animatedImage.style.transition = 'none';
         animatedImage.style.transform = `translate(${animatedImage.dataset.translateX}px, ${animatedImage.dataset.translateY}px) scale(${animatedImage.dataset.scale})`;
         animatedImage.style.zIndex = '9999';

@@ -148,6 +148,12 @@ body {
     padding-top: 20px;
 }
 
+.memes-container a {
+    display: block;
+    border-radius: 15px;
+    /* border: 2px solid black; */
+}
+
 .memes {
     height: 25vh;
     border-radius: 15px;
