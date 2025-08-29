@@ -53,7 +53,7 @@ document.addEventListener('DOMContentLoaded', () => {
             backgroundContainer.style.backgroundImage = 'none';
         }
     };
-    
+
     const showPage = (pageId, animatedImageElement = null) => {
         pages.forEach(page => {
             page.classList.remove('active');
@@ -80,7 +80,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 homeLink.classList.add('active-link');
             }
         }
-        
+
         if (!isReversing) {
             if (pageId === 'home') {
                 resetOtherMemeImages(null);
@@ -99,7 +99,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
             if (originalParent && animatedImage) {
                 originalParent.appendChild(animatedImage);
-            
+
             animatedImage.style.transition = '';
             animatedImage.style.transform = '';
             animatedImage.style.zIndex = '';
@@ -111,16 +111,16 @@ document.addEventListener('DOMContentLoaded', () => {
             animatedImage.style.display = '';
             animatedImage.removeAttribute('data-page-id');
             }
-            
+
             animatedImage = null;
             isReversing = false;
             unlockUI();
-            
+
             if (callback) {
                 callback();
             }
         };
-        
+
         animatedImage.style.transition = 'none';
         animatedImage.style.transform = `translate(${animatedImage.dataset.translateX}px, ${animatedImage.dataset.translateY}px) scale(${animatedImage.dataset.scale})`;
         animatedImage.style.zIndex = '9999';
@@ -130,7 +130,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animatedImage.style.margin = '0';
         animatedImage.style.filter = `contrast(0.7)`;
 
-        animatedImage.offsetHeight; 
+        animatedImage.offsetHeight;
 
         animatedImage.style.transition = `transform 0.2s ease-in-out, filter 0.2s ease-in-out`;
         animatedImage.style.transform = '';
@@ -154,7 +154,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     };
-    
+
     const hashChangeHandler = () => {
         const pageId = window.location.hash.substring(1);
         showPage(pageId);
@@ -171,7 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
         window.location.hash = 'home';
         setTimeout(() => {
             startNewTransition(initialPageId);
-        }, 0); 
+        }, 0);
     } else {
         window.location.hash = 'home';
         showPage('home');
@@ -197,13 +197,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
         resetOtherMemeImages(imgElement);
         animatedImage = imgElement;
-        
+
         originalParent = animatedImage.parentNode;
 
         //Make the placeholder to make sure the formatting stays consistent
         const computedStyle = window.getComputedStyle(animatedImage);
         const rect = animatedImage.getBoundingClientRect();
-        
+
         const imageCenterX = rect.left + rect.width / 2;
         const imageCenterY = rect.top + rect.height / 2;
         const screenCenterX = window.innerWidth / 2;
@@ -214,14 +214,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const scaleX = window.innerWidth / rect.width;
         const scaleY = window.innerHeight / rect.height;
         const scale = Math.max(scaleX, scaleY);
-        
+
         animatedImage.dataset.left = rect.left;
         animatedImage.dataset.top = rect.top;
         animatedImage.dataset.translateX = translateX;
         animatedImage.dataset.translateY = translateY;
         animatedImage.dataset.scale = scale;
         animatedImage.dataset.pageId = pageId;
-        
+
         placeholder = document.createElement('div');
         placeholder.style.width = computedStyle.width;
         placeholder.style.height = computedStyle.height;
@@ -236,7 +236,7 @@ document.addEventListener('DOMContentLoaded', () => {
         animatedImage.style.left = `${rect.left}px`;
         animatedImage.style.top = `${rect.top}px`;
         animatedImage.style.margin = '0';
-        
+
         animatedImage.style.transition = `transform 0.2s ease-in-out, filter 0.2s ease-in-out`;
         animatedImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
         animatedImage.style.filter = `contrast(0.7)`;
@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const startNewTransition = (pageId) => {
         const link = document.querySelector(`.nav-links a[data-page="${pageId}"]`);
         const imgElement = document.querySelector(`#home a[data-page="${pageId}"] .memes`);
-        
+
         if (link && imgElement) {
             animateTransition(pageId, null, imgElement);
         } else {
@@ -289,14 +289,14 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             event.preventDefault();
-            
+
             const currentPageId = window.location.hash.substring(1);
-            
+
             if (animatablePages.includes(currentPageId) && animatablePages.includes(pageId)) {
                 lockUI(); // Lock the UI for the transition
                 window.location.hash = 'home';
                 isReversing = true;
-                
+
                 resetImageStyles( () => {
                     setTimeout(() => {
                         startNewTransition(pageId);

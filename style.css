@@ -39,6 +39,20 @@ body {
     align-items: center;
 }
 
+.bottom-bar {
+    display: none;
+    background-color: #333;
+    color: white;
+    padding: 3px 20px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    box-sizing: border-box;
+    z-index: 1000;
+    justify-content: space-between;
+    align-items: center;
+}
+
 /* Home Button - Now visible by default for desktop */
 .home-button {
     background: transparent;
@@ -121,7 +135,6 @@ body {
     border-bottom: 2px solid white;
 }
 
-/* Page Content Container */
 .content-container {
     padding-top: 77px;
     padding-left: 20px;
@@ -218,24 +231,24 @@ iframe {
 
     .top-bar {
         padding: 3px 20px;
-        justify-content: space-between;
-        top: auto;
-        bottom: 0;
+    }
+
+    .bottom-bar {
+        display: flex;
     }
 
     .nav-links {
-        display: none;
-        width: 100%;
-        position: absolute;
-        top: auto;
-        bottom: 100%;
-        left: 0;
-        background-color: #333;
-        flex-direction: column;
-        text-align: center;
-        overflow-y: auto;
-        max-height: calc(100vh - 120px);
-    }
+    display: none;
+    width: 100%;
+    position: fixed;
+    bottom: 53px;
+    left: 0;
+    background-color: #333;
+    flex-direction: column;
+    text-align: center;
+    overflow-y: auto;
+    max-height: calc(100vh - (48px + 53px));
+}
 
     .nav-links.active {
         display: flex;
@@ -281,7 +294,7 @@ iframe {
     }
 
     .content-container {
-        padding-top: 20px;
+        padding-top: 79px;
         padding-bottom: 79px;
     }
 
