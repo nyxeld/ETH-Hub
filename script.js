@@ -242,20 +242,28 @@ document.addEventListener('DOMContentLoaded', () => {
         animatedImage.style.filter = `contrast(0.7)`;
 
         setTimeout(() => {
-            if (pageId) {
-                window.removeEventListener('hashchange', hashChangeHandler);
-                showPage(pageId, imgElement);
-                window.location.hash = pageId;
-                setTimeout(() => {
-                    window.addEventListener('hashchange', hashChangeHandler);
-                }, 0);
-            } else if (href) {
+    if (pageId) {
+        window.removeEventListener('hashchange', hashChangeHandler);
+        showPage(pageId, imgElement);
+        window.location.hash = pageId;
+        setTimeout(() => {
+            window.addEventListener('hashchange', hashChangeHandler);
+        }, 0);
+    } else if (href) {
+        // Specific check for the target href
+        if (href === "https://webprint.ethz.ch/user?1#page-main") {
+            const userConfirmed = confirm("Make sure you're on ETH Wi-Fi/VPN and not using another VPN before loading this page.");
+            if (userConfirmed) {
                 window.open(href);
-                //Placeholder, not ideal but it works
-                location.reload();
             }
-            unlockUI();
-        }, 200);
+        } else {
+            window.open(href);
+            //Not ideal for internet efficiency but it works and covers an edge case
+        }
+        location.reload();
+    }
+    unlockUI();
+}, 200);
     };
 
     const startNewTransition = (pageId) => {
