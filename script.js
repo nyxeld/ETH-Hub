@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const homeButton = document.getElementById('home-button');
+    const homeButtons = document.querySelectorAll('.home-button');
     const navLinks = document.querySelectorAll('.nav-links a');
     const navMenu = document.querySelector('.nav-links');
     const burgerMenu = document.getElementById('burger-menu');
@@ -177,9 +177,11 @@ document.addEventListener('DOMContentLoaded', () => {
         showPage('home');
     }
 
-    homeButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        window.location.hash = 'home';
+    homeButtons.forEach(button => {
+        button.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location.hash = 'home';
+        });
     });
 
     burgerMenu.addEventListener('click', () => {
@@ -306,11 +308,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 const imgElement = document.querySelector(`a[data-page="${pageId}"] .memes`);
                 animateTransition(pageId, href, imgElement);
             }
-
-            if (window.innerWidth <= 1160) {
-                navMenu.classList.remove('active');
-                burgerMenu.classList.remove('active');
-            }
+            
+            navMenu.classList.remove('active');
+            burgerMenu.classList.remove('active');
         });
     });
 

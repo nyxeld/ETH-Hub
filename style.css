@@ -239,16 +239,16 @@ iframe {
 
     .nav-links {
     display: none;
-    width: 100%;
     position: fixed;
+    width: 100%;
     bottom: 53px;
-    left: 0;
+    right: 0;
     background-color: #333;
     flex-direction: column;
     text-align: center;
     overflow-y: auto;
     max-height: calc(100vh - (48px + 53px));
-}
+    }
 
     .nav-links.active {
         display: flex;
@@ -264,16 +264,13 @@ iframe {
         width: 100%;
         padding: 0;
         margin: 0;
+        gap: 0;
     }
 
     .nav-links ul li {
         width: 100%;
         margin: 0;
         border-bottom: 1px solid #444;
-    }
-
-    .nav-links ul li:last-child {
-        border-bottom: none;
     }
 
     .nav-links ul li a {
