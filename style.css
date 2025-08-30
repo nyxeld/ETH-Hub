@@ -96,7 +96,6 @@ body {
 
 /* Burger Menu Button - Hidden on desktop */
 .burger-menu {
-    display: none;
     background: transparent;
     border: none;
     cursor: pointer;
@@ -252,6 +251,11 @@ iframe {
 /* --- Media Query for Mobile Devices --- */
 @media (max-width: 1023px) {
     .home-button {
+        display: block;
+        padding: 10px;
+    }
+
+    .reels-button {
         display: block;
         padding: 10px;
     }
