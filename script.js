@@ -157,8 +157,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const hashChangeHandler = () => {
         const pageId = window.location.hash.substring(1);
+        if (pageId === 'reels' && animatedImage) {
+            isReversing = true;
+            lockUI();
+            resetImageStyles();
+        }
         showPage(pageId);
-
         if (pageId === 'home' && animatedImage) {
             isReversing = true;
             lockUI();
