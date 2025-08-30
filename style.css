@@ -29,7 +29,7 @@ body {
     background-color: #333;
     opacity: 0.93;
     color: white;
-    padding: 15px 20px;
+    padding: 15px 20px; /* Default padding for desktop */
     position: fixed;
     top: 0;
     width: 100%;
@@ -45,7 +45,7 @@ body {
     background-color: #333;
     opacity: 0.93;
     color: white;
-    padding: 3px 20px;
+    padding: 3px 20px; /* Default padding for desktop */
     position: fixed;
     bottom: 0;
     width: 100%;
@@ -77,7 +77,7 @@ body {
     transform: scale(1.1);
 }
 
-/* .reels-button {
+.reels-button {
     background: transparent;
     border: none;
     cursor: pointer;
@@ -92,7 +92,7 @@ body {
 
 .reels-button a:hover img {
     transform: scale(1.1);
-} */
+}
 
 /* Burger Menu Button - Hidden on desktop */
 .burger-menu {
@@ -263,10 +263,14 @@ iframe {
     .top-bar {
         height: 55px;
         padding: 3px 20px;
+        /* Updated padding for mobile to include safe area */
+        padding-top: calc(3px + env(safe-area-inset-top));
     }
 
     .bottom-bar {
         display: flex;
+        /* Updated padding for mobile to include safe area */
+        padding-bottom: calc(3px + env(safe-area-inset-bottom));
     }
 
     .nav-links {
@@ -330,12 +334,13 @@ iframe {
     }
 
     .content-container {
-        padding-top: 79px;
-        padding-bottom: 79px;
+        /* This ensures your main content is not hidden behind the bars */
+        padding-top: calc(75px + env(safe-area-inset-top));
+        padding-bottom: calc(75px + env(safe-area-inset-bottom));
     }
 
     .memes {
-    width: calc(50vw - 25px);;
+    width: calc(50vw - 25px);
     height: auto;
     }
 
@@ -348,6 +353,6 @@ iframe {
 
 @media (max-width: 1023px) and (orientation: landscape) {
   .memes {
-    width: calc(33vw - 18px);;
+    width: calc(33vw - 18px);
     }
 }
