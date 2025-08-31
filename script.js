@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const burgerMenu = document.getElementById('burger-menu');
     const pages = document.querySelectorAll('.page-content');
     const backgroundContainer = document.getElementById('background-container');
-    const memesImages = document.querySelectorAll('.memes');
+    const memesImages = document.querySelectorAll('.memes, .apps');
 
     // Create a new div element for the overlay
     const overlay = document.createElement('div');
@@ -140,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     const resetOtherMemeImages = (currentAnimatedImage) => {
-        document.querySelectorAll('.memes').forEach(img => {
+        document.querySelectorAll('.memes, .apps').forEach(img => {
             if (img !== currentAnimatedImage) {
                 img.style.transition = '';
                 img.style.transform = '';
@@ -276,7 +276,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const startNewTransition = (pageId) => {
         const link = document.querySelector(`.nav-links a[data-page="${pageId}"]`);
-        const imgElement = document.querySelector(`#home a[data-page="${pageId}"] .memes`);
+        const imgElement = document.querySelector(`#home a[data-page="${pageId}"] .memes, #home a[data-page="${pageId}"] .apps`);
 
         if (link && imgElement) {
             animateTransition(pageId, null, imgElement);
@@ -311,7 +311,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     }, 100);
                 });
             } else {
-                const imgElement = document.querySelector(`a[data-page="${pageId}"] .memes`);
+                const imgElement = document.querySelector(`a[data-page="${pageId}"] .memes, a[data-page="${pageId}"] .apps`);
                 animateTransition(pageId, href, imgElement);
             }
             
