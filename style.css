@@ -21,7 +21,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     z-index: -2;
-    filter: contrast(0.7);
+    filter: contrast(0.5);
 }
 
 /* Top Navigation Bar */
@@ -29,7 +29,7 @@ body {
     background-color: #333;
     opacity: 0.93;
     color: white;
-    padding: 15px 20px; /* Default padding for desktop */
+    padding: 15px 20px;
     position: fixed;
     top: 0;
     width: 100%;
@@ -193,6 +193,10 @@ body {
     border-radius: 15px;
 }
 
+.memes-container a:hover {
+    filter: brightness(90%);
+}
+
 .memes, .apps {
     border-radius: 15px;
     transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
@@ -266,13 +270,11 @@ iframe {
     .top-bar {
         height: 55px;
         padding: 3px 20px;
-        /* Updated padding for mobile to include safe area */
         padding-top: calc(3px + env(safe-area-inset-top));
     }
 
     .bottom-bar {
         display: flex;
-        /* Updated padding for mobile to include safe area */
         padding-bottom: calc(3px + env(safe-area-inset-bottom));
     }
 
@@ -344,6 +346,10 @@ iframe {
     .memes, .apps {
     width: calc(50vw - 25px);
     height: auto;
+    }
+
+    .memes-container a:hover {
+    filter: none;
     }
 
     /* Adjust iframe container for mobile */
