@@ -1,4 +1,4 @@
-    document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const homeButtons = document.querySelectorAll('.home-button');
     const navLinks = document.querySelectorAll('.nav-links a');
     const navMenu = document.querySelector('.nav-links');
@@ -128,7 +128,7 @@
         animatedImage.style.left = `${animatedImage.dataset.left}px`;
         animatedImage.style.top = `${animatedImage.dataset.top}px`;
         animatedImage.style.margin = '0';
-        animatedImage.style.filter = `contrast(0.5)`;
+        animatedImage.style.filter = `contrast(0.7)`;
 
         animatedImage.offsetHeight;
 
@@ -157,6 +157,11 @@
 
     const hashChangeHandler = () => {
         const pageId = window.location.hash.substring(1);
+        // if (pageId === 'reels' && animatedImage) {
+        //     isReversing = true;
+        //     lockUI();
+        //     resetImageStyles();
+        // }
         showPage(pageId);
         if (pageId === 'home' && animatedImage) {
             isReversing = true;
@@ -191,7 +196,7 @@
     });
 
     const animateTransition = (pageId, href, imgElement) => {
-        // Check if the UI is locked
+        // Check if the UI is locked before starting a new animation
         if (overlay.style.display === 'block') {
             return;
         }
@@ -242,7 +247,7 @@
 
         animatedImage.style.transition = `transform 0.2s ease-in-out, filter 0.2s ease-in-out`;
         animatedImage.style.transform = `translate(${translateX}px, ${translateY}px) scale(${scale})`;
-        animatedImage.style.filter = `contrast(0.5)`;
+        animatedImage.style.filter = `contrast(0.7)`;
 
         setTimeout(() => {
     if (pageId) {
@@ -294,22 +299,22 @@
             event.preventDefault();
 
             const currentPageId = window.location.hash.substring(1);
-            if (currentPageId !== pageId) {
-                if (animatablePages.includes(currentPageId) && animatablePages.includes(pageId)) {
-                    lockUI(); // Lock the UI for the transition
-                    window.location.hash = 'home';
-                    isReversing = true;
-    
-                    resetImageStyles( () => {
-                        setTimeout(() => {
-                            startNewTransition(pageId);
-                        }, 100);
-                    });
-                } else {
-                    const imgElement = document.querySelector(`a[data-page="${pageId}"] .memes, a[data-page="${pageId}"] .apps`);
-                    animateTransition(pageId, href, imgElement);
-                }
+
+            if (animatablePages.includes(currentPageId) && animatablePages.includes(pageId)) {
+                lockUI(); // Lock the UI for the transition
+                window.location.hash = 'home';
+                isReversing = true;
+
+                resetImageStyles( () => {
+                    setTimeout(() => {
+                        startNewTransition(pageId);
+                    }, 100);
+                });
+            } else {
+                const imgElement = document.querySelector(`a[data-page="${pageId}"] .memes, a[data-page="${pageId}"] .apps`);
+                animateTransition(pageId, href, imgElement);
             }
+            
             navMenu.classList.remove('active');
             burgerMenu.classList.remove('active');
         });
@@ -317,96 +322,24 @@
 
     window.addEventListener('hashchange', hashChangeHandler);
 
-
-    const handleLink = (link, imgElement) => {
-        // Check if the UI is locked
-        if (overlay.style.display === 'block') {
-            return;
-        }
-
-        const href = link.getAttribute('href');
-        const pageId = link.dataset.page;
-
-        animateTransition(pageId, href, imgElement);
-    };
-        
     memesImages.forEach(imageButton => {
         imageButton.addEventListener('click', (event) => {
+            // Check if the UI is locked
+            if (overlay.style.display === 'block') {
+                event.preventDefault();
+                return;
+            }
 
             const link = event.target.closest('a');
+            const href = link.getAttribute('href');
+            const pageId = link.dataset.page;
             const imgElement = imageButton;
 
             event.preventDefault();
             
             if (isReversing) return;
-            console.log(link);
-            console.log(imgElement);
-            handleLink(link, imgElement);
+
+            animateTransition(pageId, href, imgElement);
         });
     });
-
-    document.addEventListener('keydown', function(event) {
-            if (event.key >= '1' && event.key <= '9') {
-            event.preventDefault();
-            
-            const currentPageId = window.location.hash.substring(1) || 'home';
-            const currentPage = document.getElementById(currentPageId);
-            const activeLinks = currentPage.querySelectorAll('.memes-container a');
-            
-            const index = parseInt(event.key, 10) - 1;
-            const linkElement = activeLinks[index];
-
-            if (linkElement) {
-                const imgElement = linkElement.querySelector('.memes, .apps');
-                handleLink(linkElement, imgElement);
-            }
-        } else if (event.key.toLowerCase() === 'h' || event.key === 'Escape') {
-                window.location.hash = 'home';
-            } else {
-                let letters = {
-                    'i': 'informatik',
-                    's': 'statistik',
-                    'c': 'PC',
-                    'o': 'OC',
-                    'b': 'bio',
-                    'a': 'bioanalytics',
-                    'n': 'nerd',
-                    'p': 'party',
-                };
-                const pageId = letters[event.key.toLowerCase()];
-                if (pageId) {
-    
-                    // Check if the UI is locked
-                    if (overlay.style.display === 'block') {
-                        event.preventDefault();
-                        return;
-                    }
-    
-                    event.preventDefault();
-    
-                    const currentPageId = window.location.hash.substring(1);
-    
-                    if (currentPageId !== pageId) {
-                        if (animatablePages.includes(currentPageId) && animatablePages.includes(pageId)) {
-                            lockUI(); // Lock the UI for the transition
-                            window.location.hash = 'home';
-                            isReversing = true;
-            
-                            resetImageStyles( () => {
-                                setTimeout(() => {
-                                    startNewTransition(pageId);
-                                }, 100);
-                            });
-                        } else {
-                            animateTransition(pageId, '#', document.querySelector(`a[data-page="${pageId}"] .memes, a[data-page="${pageId}"] .apps`));
-                        }
-                    }
-                }
-                navMenu.classList.remove('active');
-                burgerMenu.classList.remove('active');
-            }
-            navMenu.classList.remove('active');
-            burgerMenu.classList.remove('active');
-        });
-    
 });
