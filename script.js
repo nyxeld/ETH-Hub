@@ -156,9 +156,13 @@
     };
 
     const hashChangeHandler = () => {
+        showPage('home');
         const pageId = window.location.hash.substring(1);
-        showPage(pageId);
-        if (pageId === 'home' && animatedImage) {
+        if (pageId !== 'home') {
+            animatedImage = document.querySelector(`#home a[data-page="${pageId}"] .memes, #home a[data-page="${pageId}"] .apps`);
+            location.reload();
+        }
+        if (animatedImage) {
             isReversing = true;
             lockUI();
             resetImageStyles();
