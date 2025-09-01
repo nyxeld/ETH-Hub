@@ -3,6 +3,7 @@ html, body {
     margin: 0;
     padding: 0;
     height: 100%;
+    background-color: #333;
 }
 
 body {
@@ -10,7 +11,6 @@ body {
     color: #333;
 }
 
-/* Background Image Container */
 #background-container {
     position: fixed;
     top: 0;
@@ -21,7 +21,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-color: #333;
-    z-index: -2;
+    z-index: 0;
     filter: contrast(0.5);
 }
 
@@ -202,7 +202,14 @@ body {
     border-radius: 15px;
     transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
     display: block;
+}
+
+.memes {
     height: 25vh;
+}
+
+.apps {
+    height: 37.5vh;
 }
 
 #animation-overlay {
