@@ -249,28 +249,28 @@
         animatedImage.style.filter = `contrast(0.5)`;
 
         setTimeout(() => {
-    if (pageId) {
-        window.removeEventListener('hashchange', hashChangeHandler);
-        showPage(pageId, imgElement);
-        window.location.hash = pageId;
-        setTimeout(() => {
-            window.addEventListener('hashchange', hashChangeHandler);
-        }, 0);
-    } else if (href) {
-        // Specific check for the target href
-        if (href === "https://webprint.ethz.ch/user?1#page-main") {
-            const userConfirmed = confirm("Make sure you're on ETH Wi-Fi/VPN and not using another VPN before loading this page.");
-            if (userConfirmed) {
-                window.open(href);
+            if (pageId) {
+                window.removeEventListener('hashchange', hashChangeHandler);
+                showPage(pageId, imgElement);
+                window.location.hash = pageId;
+                setTimeout(() => {
+                    window.addEventListener('hashchange', hashChangeHandler);
+                }, 0);
+            } else if (href) {
+                // Specific check for the target href
+                if (href === "https://webprint.ethz.ch/user?1#page-main") {
+                    const userConfirmed = confirm("Make sure you're on ETH Wi-Fi/VPN and not using another VPN before loading this page.");
+                    if (userConfirmed) {
+                        window.open(href);
+                    }
+                } else {
+                    window.open(href);
+                    //Not ideal for internet efficiency but it works and covers an edge case
+                }
+                location.reload();
             }
-        } else {
-            window.open(href);
-            //Not ideal for internet efficiency but it works and covers an edge case
-        }
-        location.reload();
-    }
-    unlockUI();
-}, 200);
+            unlockUI();
+        }, 200);
     };
 
     const startNewTransition = (pageId) => {
@@ -347,68 +347,72 @@
         });
     });
 
-    document.addEventListener('keydown', function(event) {
-            if (event.key >= '1' && event.key <= '9') {
-            event.preventDefault();
-            
-            const currentPageId = window.location.hash.substring(1) || 'home';
-            const currentPage = document.getElementById(currentPageId);
-            const activeLinks = currentPage.querySelectorAll('.memes-container a');
-            
-            const index = parseInt(event.key, 10) - 1;
-            const linkElement = activeLinks[index];
+    let lastKeyPressed = null;
 
-            if (linkElement) {
-                const imgElement = linkElement.querySelector('.memes, .apps');
-                handleLink(linkElement, imgElement);
-            }
-        } else if (event.key.toLowerCase() === 'h' || event.key === 'Escape') {
+// The event listener now only updates a variable
+document.addEventListener('keydown', function(event) {
+    // Only store the key if the overlay is not active
+    if (overlay.style.display !== 'block') {
+        lastKeyPressed = event.key.toLowerCase();
+    }
+});
+
+// The main processing logic runs on a timer
+setInterval(() => {
+    // If no key has been pressed, do nothing
+    if (!lastKeyPressed) {
+        return;
+    }
+
+    const key = lastKeyPressed;
+    lastKeyPressed = null; // Immediately reset the variable
+
+    let letters = {
+        'i': 'informatik',
+        's': 'statistik',
+        'c': 'PC',
+        'o': 'OC',
+        'b': 'bio',
+        'a': 'bioanalytics',
+        'n': 'nerd',
+        'p': 'party',
+    };
+    const pageId = letters[key];
+
+    if (key >= '1' && key <= '9') {
+        const currentPageId = window.location.hash.substring(1) || 'home';
+        const currentPage = document.getElementById(currentPageId);
+        const activeLinks = currentPage.querySelectorAll('.memes-container a');
+
+        const index = parseInt(key, 10) - 1;
+        const linkElement = activeLinks[index];
+
+        if (linkElement) {
+            const imgElement = linkElement.querySelector('.memes, .apps');
+            handleLink(linkElement, imgElement);
+        }
+    } else if (key === 'h' || key === 'escape') {
+        window.location.hash = 'home';
+    } else if (pageId) {
+        const currentPageId = window.location.hash.substring(1);
+
+        if (currentPageId !== pageId) {
+            if (animatablePages.includes(currentPageId) && animatablePages.includes(pageId)) {
+                lockUI();
                 window.location.hash = 'home';
+                isReversing = true;
+
+                resetImageStyles(() => {
+                    setTimeout(() => {
+                        startNewTransition(pageId);
+                    }, 100);
+                });
             } else {
-                let letters = {
-                    'i': 'informatik',
-                    's': 'statistik',
-                    'c': 'PC',
-                    'o': 'OC',
-                    'b': 'bio',
-                    'a': 'bioanalytics',
-                    'n': 'nerd',
-                    'p': 'party',
-                };
-                const pageId = letters[event.key.toLowerCase()];
-                if (pageId) {
-    
-                    // Check if the UI is locked
-                    if (overlay.style.display === 'block') {
-                        event.preventDefault();
-                        return;
-                    }
-    
-                    event.preventDefault();
-    
-                    const currentPageId = window.location.hash.substring(1);
-    
-                    if (currentPageId !== pageId) {
-                        if (animatablePages.includes(currentPageId) && animatablePages.includes(pageId)) {
-                            lockUI(); // Lock the UI for the transition
-                            window.location.hash = 'home';
-                            isReversing = true;
-            
-                            resetImageStyles( () => {
-                                setTimeout(() => {
-                                    startNewTransition(pageId);
-                                }, 100);
-                            });
-                        } else {
-                            animateTransition(pageId, '#', document.querySelector(`a[data-page="${pageId}"] .memes, a[data-page="${pageId}"] .apps`));
-                        }
-                    }
-                }
-                navMenu.classList.remove('active');
-                burgerMenu.classList.remove('active');
+                animateTransition(pageId, '#', document.querySelector(`a[data-page="${pageId}"] .memes, a[data-page="${pageId}"] .apps`));
             }
-            navMenu.classList.remove('active');
-            burgerMenu.classList.remove('active');
-        });
-    
+        }
+    }
+    navMenu.classList.remove('active');
+    burgerMenu.classList.remove('active');
+}, 50); // Checks for a new keypress every 50 milliseconds
 });
