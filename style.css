@@ -177,9 +177,9 @@ body {
 
 .page-content.active {
     display: block;
+    padding-top: 55px
 }
 
-/* Update the parent div of the meme images */
 .memes-container {
     display: flex;
     flex-wrap: wrap;
@@ -218,33 +218,10 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: transparent; /* Use a transparent color or a semi-transparent one if you want a visual cue */
-    z-index: 99999; /* A very high z-index to ensure it's on top of everything */
-    display: none; /* Hidden by default */
-    cursor: not-allowed;
-}
-
-/* Iframe container to handle dynamic sizing */
-.iframe-container {
+    background-color: transparent;
+    z-index: 99999;
     display: none;
-    position: fixed;
-    top: 54px;
-    left: 0;
-    width: 100vw;
-    height: calc(100vh - 70px);
-    z-index: -1;
-}
-
-/* Show the iframe container only when its parent page is active */
-#vebis.active .iframe-container {
-    display: block;
-}
-
-/* Iframe to fill its parent container */
-iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
+    cursor: not-allowed;
 }
 
     video {
@@ -259,7 +236,6 @@ iframe {
         background-color: #333; 
     }
 
-/* --- Media Query for Mobile Devices --- */
 @media (max-width: 1023px) {
     .home-button {
         display: block;
@@ -358,12 +334,6 @@ iframe {
 
     .memes-container a:hover {
     filter: none;
-    }
-
-    /* Adjust iframe container for mobile */
-    .iframe-container {
-        top: 20px;
-        height: calc(100vh - 99px);
     }
 }
 
