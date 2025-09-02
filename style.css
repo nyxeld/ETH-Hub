@@ -58,6 +58,7 @@ body {
 
 .bottom-bar button {
     width: 55px;
+    height: auto;
 }
 
 /* Home Button - Now visible by default for desktop */
@@ -179,11 +180,12 @@ body {
     position: fixed;
     width: 100%;
     top: 55px;
-    bottom: 0px;
+    bottom: 0;
     right: 0;
     flex-direction: column;
     text-align: center;
     overflow-y: auto;
+    padding-top:20px;
 }
 
 .memes-container {
@@ -350,7 +352,13 @@ body {
     .memes {
         width: calc(33vw - 18px);
     }
+    
     .apps {
       width: calc(25vw - 18px);
+    }
+    
+    .bottom-bar {
+        justify-content: end;
+        gap: 10vw;
     }
 }
