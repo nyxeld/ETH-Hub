@@ -159,6 +159,10 @@
         showPage('home');
         const pageId = window.location.hash.substring(1);
         if (pageId !== 'home') {
+            if (pageId === 'reels') {
+                showPage('reels');
+                return;
+            }
             location.reload();
             animatedImage = document.querySelector(`#home a[data-page="${pageId}"] .memes, #home a[data-page="${pageId}"] .apps`);
         }
