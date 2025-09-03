@@ -21,10 +21,10 @@
         bio: 'biology.webp',
         bioanalytics: 'bioanalytics.webp',
         nerd: 'nerd.webp',
-        party: 'party.webp',
+        extra: 'extra.webp',
     };
     
-    const animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'party'];
+    const animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'extra'];
 
     let animatedImage = null;
     let isReversing = false;
@@ -371,12 +371,12 @@
         let letters = {
             'i': 'informatik',
             's': 'statistik',
-            'c': 'PC',
+            'p': 'PC',
             'o': 'OC',
             'b': 'bio',
             'a': 'bioanalytics',
             'n': 'nerd',
-            'p': 'party',
+            'e': 'extra',
         };
         const pageId = letters[key];
     
