@@ -120,6 +120,12 @@ body {
     transition: transform 0.3s ease, opacity 0.3s ease;
 }
 
+.banner {
+    padding: 20px;
+    border-radius: 15px;
+    background-color: rgba(255, 255, 255, 0.8);
+}
+
 .nav-links {
     flex-grow: 1;
 }
@@ -185,7 +191,6 @@ body {
     flex-direction: column;
     text-align: center;
     overflow-y: auto;
-    padding-top:20px;
 }
 
 .memes-container {
