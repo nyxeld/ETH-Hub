@@ -291,6 +291,7 @@ video {
         display: flex;
         border-bottom: 2px solid #444;
         border-top: 2px solid #444;
+        justify-content: end;
     }
 
     .nav-links ul li a.active-link {
