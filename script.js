@@ -13,15 +13,15 @@
     document.body.appendChild(overlay);
 
     const backgroundImages = {
-        home: 'home.webp',
-        informatik: 'informatik.webp',
-        statistik: 'statistik.webp',
-        PC: 'pc.webp',
-        OC: 'oc.webp',
-        bio: 'biology.webp',
-        bioanalytics: 'bioanalytics.webp',
-        nerd: 'nerd.webp',
-        extra: 'extra.webp',
+        home: 'img/home.webp',
+        informatik: 'img/3/informatik.webp',
+        statistik: 'img/3/statistik.webp',
+        PC: 'img/3/pc.webp',
+        OC: 'img/3/oc.webp',
+        bio: 'img/3/biology.webp',
+        bioanalytics: 'img/3/bioanalytics.webp',
+        nerd: 'img/nerd.webp',
+        extra: 'img/extra.webp',
     };
     
     const animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'extra'];
@@ -415,5 +415,5 @@
         }
         navMenu.classList.remove('active');
         burgerMenu.classList.remove('active');
-    }, 50); // Checks for a new keypress every 50 milliseconds
+    }, 50);
 });
