@@ -2,21 +2,199 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Dynamic Inline Styles</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)">
+    <title>ETHz Hub</title>
+    <link rel="icon" type="image" href="../img/pin.webp">
+    <link rel="stylesheet" href="../style.css">
 </head>
 <body>
-    <h1 id="my-heading">This heading has dynamic color.</h1>
 
-    <script>
-        const path = window.location.pathname;
-        console.log(path);
-        const headingElement = document.getElementById('my-heading');
+    <div id="background-container"></div>
 
-        if (path === '/one') {
-            headingElement.style.color = 'darkblue';
-        } else if (path === '/two') {
-            headingElement.style.color = 'darkred';
-        }
-    </script>
+    <header class="top-bar">
+        <button class="home-button" id="home-button" style="height: 50px; padding: 0">
+            <a href="#home" data-page="home"><img src="../img/logo.webp" alt="Home" style="height: 35px;"></a>
+        </button>
+        <nav class="nav-links">
+            <ul>
+                <li><a href="#mathe" data-page="mathe">Mathematik</a></li>
+                <li><a href="#OC" data-page="OC">OC I</a></li>
+                <li><a href="#AC" data-page="AC">AC</a></li>
+                <li><a href="#physik" data-page="physik">Physik</a></li>
+                <li><a href="#bio" data-page="bio">Bio I</a></li>
+                <li><a href="#nerd" data-page="nerd">Nerd stuff</a></li>
+                <li><a href="#extra" data-page="extra">Extra</a></li>
+            </ul>
+        </nav>
+    </header>
+    <header class="bottom-bar">
+        <button class="reels-button">
+            <a href="#reels" data-page="reels"><img src="../img/reels.webp" alt="Reels"></a>
+        </button>
+        <button class="home-button" id="bottom-home-button">
+            <a href="#home" data-page="home"><img src="../img/house.webp" alt="Home"></a>
+        </button>
+        <button class="burger-menu" id="burger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+    </header>
+    
+    <main class="content-container">
+        <div id="home" class="page-content active">
+            <div class="memes-container">
+                <a href="#mathe" data-page="mathe"><img src="../img/1/mathe.webp" class="memes" alt="Mathe"></a>
+                <a href="#OC" data-page="OC"><img src="../img/1/oc.webp" class="memes" alt="OC"></a>
+                <a href="#AC" data-page="AC"><img src="../img/1/ac.webp" class="memes" alt="AC"></a>
+                <a href="#physik" data-page="physik"><img src="../img/1/physik.webp" class="memes" alt="Physik"></a>
+                <a href="#bio" data-page="bio"><img src="../img/1/biology.webp" class="memes" alt="Bio"></a>
+                <a href="#nerd" data-page="nerd"><img src="../img/nerd.webp" class="memes" alt="Nerd stuff"></a>
+                <a href="#extra" data-page="extra"><img src="../img/extra.webp" class="memes" alt="Extra"></a>
+            </div>
+        </div>
+        <div id="mathe" class="page-content">
+            <div class="memes-container">
+                <a href="https://metaphor.ethz.ch/x/2025/hs/401-0291-00L/" target="_blank"><img src="" class="apps" alt="Metaphor"></a>
+                <a href="" target="_blank"><img src="" class="apps" alt="SAMup"></a>
+                <a href="" target="_blank"><img src="" class="apps" alt="Echo"></a>
+            </div>
+        </div>
+
+        <div id="OC" class="page-content">
+            <div class="memes-container">
+                <a href="" target="_blank"><img src="../img/moodle.webp" class="apps" alt="Moodle"></a>
+                <a href="https://nyxeld.github.io/MOSFECCS/" target="_blank"><img src="../img/1/mosfeccs.webp" class="apps" alt="Mosfeccs"></a>
+            </div>
+        </div>
+
+        <div id="AC" class="page-content">
+            <div class="memes-container">
+                <a href="" target="_blank"><img src="../img/moodle.webp" class="apps" alt="Moodle"></a>
+                <a href="" target="_blank"><img src="" class="apps" alt="Miro"></a>
+                <a href="" target="_blank"><img src="" class="apps" alt="Labor Moodle"></a>
+            </div>
+        </div>
+
+        <div id="physik" class="page-content">
+            <div class="memes-container">
+                <a href="" target="_blank"><img src="../img/moodle.webp" class="apps" alt="Moodle"></a>
+            </div>
+        </div>
+
+        <div id="bio" class="page-content">
+            <div class="memes-container">
+                <a href="" target="_blank"><img src="../img/moodle.webp" class="apps" alt="Moodle"></a>
+            </div>
+        </div>
+
+        <div id="nerd" class="page-content">
+            <div class="memes-container">
+                <a href="https://www.lehrbetrieb.ethz.ch/myStudies/login.view" target="_blank"><img src="../img/mystudies.webp" class="apps" alt="myStudies"></a>
+                <a href="https://eduapp.ethz.ch/schedule/week/" target="_blank"><img src="../img/eduapp.webp" class="apps" alt="EduApp"></a>
+                <a href="FS25II_V3_pages.pdf" target="_blank"><img src="../img/biotikum.webp" class="apps" alt="Biotikum"></a>
+                <a href="https://eth.swisscovery.slsp.ch/discovery/search?vid=41SLSP_ETH:ETH" target="_blank"><img src="../img/bibliothek.webp" class="apps" alt="Bibliothek"></a>
+                <a href="https://webprint.ethz.ch/user?1#page-main" target="_blank"><img src="../img/printer.webp" class="apps" alt="Printers"></a>
+                <a href="https://itshop.ethz.ch/EndUser/Items/Home" target="_blank"><img src="../img/printercredit.webp" class="apps" alt="Printer credit"></a>
+                <a href="https://www.password.ethz.ch/" target="_blank"><img src="../img/password.webp" class="apps" alt="Passwords"></a>
+                <a href="https://video.ethz.ch/" target="_blank"><img src="../img/portal.webp" class="apps" alt="Video Portal"></a>            
+            </div>
+        </div>
+
+        <div id="extra" class="page-content">
+            <div class="memes-container">
+                <a href="https://vseth.ethz.ch/" target="_blank"><img src="../img/vseth.webp" class="apps" alt="VSETH"></a>
+                <a href="https://vebis.ch/" target="_blank"><img src="../img/vebis.webp" class="apps" alt="VeBiS"></a>
+                <a href="https://www.lochness-ethz.ch/" target="_blank"><img src="../img/lochness.webp" class="apps" alt="LochNess"></a>
+                <a href="https://ethz.ch/en/campus/getting-to-know/cafes-restaurants-shops/gastronomy/menueplaene.html" target="_blank"><img src="../img/mensa.webp" class="apps" alt="Mensa"></a>
+            </div>
+        </div>
+        <div id="reels" class="page-content">
+            <div class="memes-container">
+                <video autoplay loop muted playsinline src="../img/subwaysurfers.mp4"></video>
+            </div>
+        </div>
+        
+        <div id="wirdichbestah" class="page-content">
+            
+            <div class="banner">
+                <h2>wirdIchBestah©</h2>
+                <div>
+                  <label for="bio-slider">Bio (%):</label>
+                  <input type="range" id="bio-slider" min="0" max="100" value="0" oninput="updateBio()">
+                  <input type="number" id="bio-input" min="0" max="100" value="0" oninput="updateBioFromInput()"> 
+                </div>
+                
+                <div>
+                  <label for="OC-slider">OC (%):</label>
+                  <input type="range" id="OC-slider" min="0" max="100" value="0" oninput="updateOC()">
+                  <input type="number" id="OC-input" min="0" max="100" value="0" oninput="updateOCFromInput()"> 
+                </div>
+                
+                <div>
+                  <label for="AC">AC (%):</label>
+                  <input type="range" id="AC-slider" min="0" max="100" value="0" oninput="updateAC()">
+                  <input type="number" id="AC-input" min="0" max="100" value="0" oninput="updateACFromInput()"> 
+                </div>
+                <p id="result"></p>
+            </div>
+            
+            <script>
+              function updateBio() {
+                var sliderValue = document.getElementById("bio-slider").value;
+                document.getElementById("bio-input").value = sliderValue; 
+                calculate(); 
+              }
+            
+              function updateBIOFromInput() {
+                var inputValue = document.getElementById("bio-Input").value;
+                document.getElementById("bio-slider").value = inputValue; 
+                calculate(); 
+              }
+            
+              function updateOC() {
+                var sliderValue = document.getElementById("OC-slider").value;
+                document.getElementById("OC-input").value = sliderValue; 
+                calculate(); 
+              }
+            
+              function updateOCFromInput() {
+                var inputValue = document.getElementById("OC-input").value;
+                document.getElementById("OC-slider").value = inputValue; 
+                calculate(); 
+              }
+            
+              function updateAC() {
+                var sliderValue = document.getElementById("AC-slider").value;
+                document.getElementById("AC-input").value = sliderValue; 
+                calculate(); 
+              }
+            
+              function updateACFromInput() {
+                var inputValue = document.getElementById("AC-input").value;
+                document.getElementById("AC-input").value = inputValue; 
+                calculate(); 
+              }
+            
+              function calculate() {
+                var BIO = parseFloat(document.getElementById("bio-slider").value) || 0;
+                var OC = parseFloat(document.getElementById("OC-slider").value) || 0;
+                var AC = parseFloat(document.getElementById("AC-slider").value) || 0;
+            
+                var result = Math.floor((Math.min(BIO, 100) * 8 + Math.min(OC, 100) * 5 + Math.min(AC, 100) * 5) / 18);
+            
+                if (result > 49) {
+                  document.getElementById("result").innerHTML = result + "%<br>Du wirsch bestah :)";
+                } else {
+                  document.getElementById("result").innerHTML = result + "%<br>Du wirsch nöt bestah :(";
+                }
+              }
+            </script>
+        </div>
+    </main>
+
+    <script src="../script.js"></script>
+
 </body>
 </html>
