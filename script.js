@@ -11,20 +11,14 @@
     const overlay = document.createElement('div');
     overlay.id = 'animation-overlay';
     document.body.appendChild(overlay);
-
-    const backgroundImages = {
-        home: 'img/home.webp',
-        informatik: 'img/3/informatik.webp',
-        statistik: 'img/3/statistik.webp',
-        PC: 'img/3/pc.webp',
-        OC: 'img/3/oc.webp',
-        bio: 'img/3/biology.webp',
-        bioanalytics: 'img/3/bioanalytics.webp',
-        nerd: 'img/nerd.webp',
-        extra: 'img/extra.webp',
-    };
     
-    const animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'extra'];
+    let animatablePages = []; 
+    if (window.location.href.includes('/ersti')) {
+        animatablePages = ['mathe', 'AC', 'physik', 'OC', 'bio', 'nerd', 'extra'];
+    } else {
+        animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'extra'];
+    }
+    
 
     let animatedImage = null;
     let isReversing = false;
@@ -45,7 +39,11 @@
         if (animatedImageElement) {
             imageUrl = animatedImageElement.src;
         } else {
-            imageUrl = backgroundImages[pageId];
+            if (window.location.href.includes('/ersti')) {
+                imageUrl = '../img/home.webp';
+            } else {
+                imageUrl = 'img/home.webp';
+            }
         }
         if (imageUrl) {
             backgroundContainer.style.backgroundImage = `url('${imageUrl}')`;
@@ -159,8 +157,8 @@
         showPage('home');
         const pageId = window.location.hash.substring(1);
         if (pageId !== 'home') {
-            if (pageId === 'reels') {
-                showPage('reels');
+            if (pageId === 'reels' || pageId === 'wirdichbestah') {
+                showPage(pageId);
                 return;
             }
             location.reload();
