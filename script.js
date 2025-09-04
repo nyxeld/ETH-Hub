@@ -15,7 +15,7 @@
     let animatablePages = []; 
     if (window.location.href.includes('/ersti')) {
         animatablePages = ['mathe', 'AC', 'physik', 'OC', 'bio', 'nerd', 'extra'];
-    } else {
+    } else if (window.location.href.includes('/dritti')) {
         animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'extra'];
     }
     
@@ -350,7 +350,6 @@
 
     let lastKeyPressed = null;
     
-    // The event listener now only updates a variable
     document.addEventListener('keydown', function(event) {
         if (overlay.style.display !== 'block') {
             lastKeyPressed = event.key.toLowerCase();
@@ -364,17 +363,27 @@
     
         const key = lastKeyPressed;
         lastKeyPressed = null;
-    
-        let letters = {
-            'i': 'informatik',
-            's': 'statistik',
-            'p': 'PC',
-            'o': 'OC',
-            'b': 'bio',
-            'a': 'bioanalytics',
-            'n': 'nerd',
-            'e': 'extra',
-        };
+        let letters = {};
+        if (window.location.href.includes('/ersti')) {
+            letters = {
+                'm': 'mathe',
+                'o': 'OC',
+                'a': 'AC',
+                'p': 'physik',
+                'b': 'bio',
+            };
+        } else if (window.location.href.includes('/dritti')) {
+            letters = {
+                'i': 'informatik',
+                's': 'statistik',
+                'p': 'PC',
+                'o': 'OC',
+                'b': 'bio',
+                'a': 'bioanalytics',
+            };
+        } else return;
+        letters.n = 'nerd';
+        letters.e = 'extra';  
         const pageId = letters[key];
     
         if (key >= '1' && key <= '9') {
