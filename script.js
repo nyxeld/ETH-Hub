@@ -19,7 +19,6 @@
         animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'extra'];
     }
     
-
     let animatedImage = null;
     let isReversing = false;
     let placeholder = null;
@@ -39,10 +38,10 @@
         if (animatedImageElement) {
             imageUrl = animatedImageElement.src;
         } else {
-            if (window.location.href.includes('/ersti')) {
+            if (window.location.href.includes('/ersti') || window.location.href.includes('/dritti')) {
                 imageUrl = '../img/home.webp';
             } else {
-                imageUrl = 'img/home.webp';
+                imageUrl = './img/home.webp';
             }
         }
         if (imageUrl) {
@@ -259,15 +258,16 @@
                     window.addEventListener('hashchange', hashChangeHandler);
                 }, 0);
             } else if (href) {
-                // Specific check for the target href
                 if (href === "https://webprint.ethz.ch/user?1#page-main") {
                     const userConfirmed = confirm("Make sure you're on ETH Wi-Fi/VPN and not using another VPN before loading this page.");
                     if (userConfirmed) {
                         window.open(href);
                     }
+                } else if (href.includes('./') && href.includes('html')) {
+                    window.location.href = href;
+                    return;
                 } else {
                     window.open(href);
-                    //Not ideal for internet efficiency but it works and covers an edge case
                 }
                 location.reload();
             }

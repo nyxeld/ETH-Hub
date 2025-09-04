@@ -5,8 +5,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <meta name="theme-color" content="#333333" media="(prefers-color-scheme: dark)">
     <title>ETHz Hub</title>
-    <link rel="icon" type="image" href="img/pin.webp">
+    <link rel="icon" type="image" href="./img/pin.webp">
     <link rel="stylesheet" href="./style.css">
+    <style>
+        .image-container {
+            position: relative;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .image-text {
+            position: absolute;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 2.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px #000;
+            pointer-events: none;
+            z-index: 10;
+        }
+    </style>
 </head>
 <body>
 
@@ -14,29 +34,18 @@
 
     <header class="top-bar">
         <button class="home-button" id="home-button" style="height: 50px; padding: 0">
-            <a href="#home" data-page="home"><img src="img/logo.webp" alt="Home" style="height: 35px;"></a>
+            <a href="#home" data-page="home"><img src="./img/logo.webp" alt="Home" style="height: 35px;"></a>
         </button>
-        <nav class="nav-links">
-            <ul>
-                <li><a href="#informatik" data-page="informatik">Informatik</a></li>
-                <li><a href="#statistik" data-page="statistik">Statistik</a></li>
-                <li><a href="#PC" data-page="PC">PC</a></li>
-                <li><a href="#OC" data-page="OC">OC Lab</a></li>
-                <li><a href="#bio" data-page="bio">Bio III</a></li>
-                <li><a href="#bioanalytics" data-page="bioanalytics">Bioanalytics</a></li>
-                <li><a href="#nerd" data-page="nerd">Nerd stuff</a></li>
-                <li><a href="#extra" data-page="extra">Extra</a></li>
-            </ul>
-        </nav>
     </header>
     <header class="bottom-bar">
         <button class="reels-button">
-            <a href="#reels" data-page="reels"><img src="img/reels.webp" alt="Reels"></a>
+            <a href="#reels" data-page="reels"><img src="./img/reels.webp" alt="Reels"></a>
         </button>
         <button class="home-button" id="bottom-home-button">
-            <a href="#home" data-page="home"><img src="img/house.webp" alt="Home"></a>
+            <a href="#home" data-page="home"><img src="./img/house.webp" alt="Home"></a>
         </button>
-        <button class="burger-menu" id="burger-menu">
+        <div style="width:55px"></div>
+        <button class="burger-menu" id="burger-menu" style="display: none;">
             <span></span>
             <span></span>
             <span></span>
@@ -46,91 +55,24 @@
     <main class="content-container">
         <div id="home" class="page-content active">
             <div class="memes-container">
-                <a href="#informatik" data-page="informatik"><img src="img/3/informatik.webp" class="memes" alt="Informatik"></a>
-                <a href="#statistik" data-page="statistik"><img src="img/2/statistik.webp" class="memes" alt="Statistik"></a>
-                <a href="#PC" data-page="PC"><img src="img/3/pc.webp" class="memes" alt="PC"></a>
-                <a href="#OC" data-page="OC"><img src="img/3/oc.webp" class="memes" alt="OC"></a>
-                <a href="#bio" data-page="bio"><img src="img/3/biology.webp" class="memes" alt="bio"></a>
-                <a href="#bioanalytics" data-page="bioanalytics"><img src="img/3/bioanalytics.webp" class="memes" alt="Bioanalytics"></a>
-                <a href="#nerd" data-page="nerd"><img src="img/nerd.webp" class="memes" alt="Nerd stuff"></a>
-                <a href="#extra" data-page="extra"><img src="img/extra.webp" class="memes" alt="Extra"></a>
+                <div class="image-container">
+                    <a href="./ersti/index.html">
+                        <img src="./img/nerd.webp" class="memes" alt="Ersti">
+                        <span class="image-text">Ersti</span>
+                    </a>
+                </div>
+                <div class="image-container">
+                    <a href="./dritti/index.html">
+                        <img src="./img/3/chad.webp" class="memes" alt="Dritti">
+                        <span class="image-text">Dritti</span>
+                    </a>
+                </div>
             </div>
         </div>
-        <div id="informatik" class="page-content">
-            <div class="banner">
-                <h1>Welcome to Gründlagen der Informatik!</h1>
-                <p>It's the start of the semester, so I'm gonna be adding all the relevant links as I get them. See something I missed? DM me!</p>
-            </div>
-            <div class="memes-container">
-                <a href="https://moodle-app2.let.ethz.ch/enrol/index.php?id=22944" target="_blank"><img src="img/moodle.webp" class="apps" alt="Informatik"></a>
-            </div>
-        </div>
-
-        <div id="statistik" class="page-content">
-            <div class="banner">
-                <h1>Welcome to Statistik II!</h1>
-                <p>It's the start of the semester, so I'm gonna be adding all the relevant links as I get them. See something I missed? DM me!</p>
-            </div>
-        </div>
-
-        <div id="PC" class="page-content">
-            <div class="banner">
-                <h1>Welcome to physikalische Chemie!</h1>
-                <p>It's the start of the semester, so I'm gonna be adding all the relevant links as I get them. See something I missed? DM me!</p>
-            </div>
-        </div>
-
-        <div id="OC" class="page-content">
-            <div class="banner">
-                <h1>Welcome to the orgnische Chemie Lab!</h1>
-                <p>It's the start of the semester, so I'm gonna be adding all the relevant links as I get them. See something I missed? DM me!</p>
-            </div>
-            <div class="memes-container">
-                <a href="https://nyxeld.github.io/MOSFECCS/" target="_blank"><img src="img/1/mosfeccs.webp" class="apps" alt="Mosfeccs"></a>
-            </div>
-        </div>
-
-
-        <div id="bio" class="page-content">
-            <div class="banner">
-                <h1>Welcome to Biology III!</h1>
-                <p>It's the start of the semester, so I'm gonna be adding all the relevant links as I get them. See something I missed? DM me!</p>
-            </div>
-            <div class="memes-container">
-                <a href="https://moodle-app2.let.ethz.ch/course/view.php?id=26121" target="_blank"><img src="img/moodle.webp" class="apps" alt="Moodle"></a>
-            </div>
-        </div>
-
-        <div id="bioanalytics" class="page-content">
-            <div class="banner">
-                <h1>Welcome to the bioanalytics!</h1>
-                <p>It's the start of the semester, so I'm gonna be adding all the relevant links as I get them. See something I missed? DM me!</p>
-            </div>
-        </div>
-        <div id="nerd" class="page-content">
-            <div class="memes-container">
-                <a href="https://www.lehrbetrieb.ethz.ch/myStudies/login.view" target="_blank"><img src="img/mystudies.webp" class="apps" alt="myStudies"></a>
-                <a href="https://eduapp.ethz.ch/schedule/week/" target="_blank"><img src="img/eduapp.webp" class="apps" alt="EduApp"></a>
-                <a href="biotikum.pdf" target="_blank"><img src="img/biotikum.webp" class="apps" alt="Biotikum"></a>
-                <a href="https://eth.swisscovery.slsp.ch/discovery/search?vid=41SLSP_ETH:ETH" target="_blank"><img src="img/bibliothek.webp" class="apps" alt="Bibliothek"></a>
-                <a href="https://webprint.ethz.ch/user?1#page-main" target="_blank"><img src="img/printer.webp" class="apps" alt="Printers"></a>
-                <a href="https://itshop.ethz.ch/EndUser/Items/Home" target="_blank"><img src="img/printercredit.webp" class="apps" alt="Printer credit"></a>
-                <a href="https://www.password.ethz.ch/" target="_blank"><img src="img/password.webp" class="apps" alt="Passwords"></a>
-                <a href="https://video.ethz.ch/" target="_blank"><img src="img/portal.webp" class="apps" alt="Video Portal"></a>            
-            </div>
-        </div>
-
-        <div id="extra" class="page-content">
-            <div class="memes-container">
-                <a href="https://vseth.ethz.ch/" target="_blank"><img src="img/vseth.webp" class="apps" alt="VSETH"></a>
-                <a href="https://vebis.ch/" target="_blank"><img src="img/vebis.webp" class="apps" alt="VeBiS"></a>
-                <a href="https://www.lochness-ethz.ch/" target="_blank"><img src="img/lochness.webp" class="apps" alt="LochNess"></a>
-                <a href="https://ethz.ch/en/campus/getting-to-know/cafes-restaurants-shops/gastronomy/menueplaene.html" target="_blank"><img src="img/mensa.webp" class="apps" alt="Mensa"></a>
-            </div>
-        </div>
+            
         <div id="reels" class="page-content">
             <div class="memes-container">
-                <video autoplay loop muted playsinline src="img/subwaysurfers.mp4"></video>
+                <video autoplay loop muted playsinline src="./img/subwaysurfers.mp4"></video>
             </div>
         </div>
     </main>
