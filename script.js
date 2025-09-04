@@ -268,7 +268,7 @@
                 } else {
                     window.open(href);
                 }
-                setTimeout(() => location.reload(),100);
+                setTimeout(() => location.reload(),500);
             }
             unlockUI();
         }, 200);
