@@ -263,7 +263,7 @@
                     if (userConfirmed) {
                         window.open(href);
                     }
-                } else if (href.includes('./') && href.includes('html')) {
+                } else if (href.includes('./') && !href.includes('pdf')) {
                     window.location.href = href;
                 } else {
                     window.open(href);
