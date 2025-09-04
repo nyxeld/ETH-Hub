@@ -366,4 +366,8 @@ video {
         justify-content: end;
         gap: 10vw;
     }
+
+    .nav-links.active {
+        justify-content: start;
+    }
 }
