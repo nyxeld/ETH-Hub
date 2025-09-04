@@ -265,11 +265,10 @@
                     }
                 } else if (href.includes('./') && href.includes('html')) {
                     window.location.href = href;
-                    return;
                 } else {
                     window.open(href);
                 }
-                location.reload();
+                setTimeout(() => location.reload(),100);
             }
             unlockUI();
         }, 200);
