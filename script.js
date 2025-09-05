@@ -15,7 +15,7 @@
     let animatablePages = []; 
     if (window.location.href.includes('/ersti')) {
         animatablePages = ['mathe', 'AC', 'physik', 'OC', 'bio', 'nerd', 'extra'];
-    } else if (window.location.href.includes('/dritti')) {
+    } else if (window.location.href.includes('/zweiti')) {
         animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'extra'];
     }
     
@@ -38,7 +38,7 @@
         if (animatedImageElement) {
             imageUrl = animatedImageElement.src;
         } else {
-            if (window.location.href.includes('/ersti') || window.location.href.includes('/dritti')) {
+            if (window.location.href.includes('/ersti') || window.location.href.includes('/zweiti')) {
                 imageUrl = '../img/home.webp';
             } else {
                 imageUrl = './img/home.webp';
@@ -372,7 +372,7 @@
                 'p': 'physik',
                 'b': 'bio',
             };
-        } else if (window.location.href.includes('/dritti')) {
+        } else if (window.location.href.includes('/zweiti')) {
             letters = {
                 'i': 'informatik',
                 's': 'statistik',
