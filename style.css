@@ -205,10 +205,6 @@ body {
     border-radius: 15px;
 }
 
-.memes-container a:hover {
-    filter: brightness(90%);
-}
-
 .memes, .apps {
     border-radius: 15px;
     transition: transform 0.2s ease-in-out, opacity 0.2s ease-in-out;
@@ -396,4 +392,10 @@ video {
     .nav-links.active {
         justify-content: start;
     }
+}
+
+@media (pointer: fine) {
+  .memes-container a:hover {
+    filter: brightness(90%);
+  }
 }
