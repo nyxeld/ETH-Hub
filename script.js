@@ -290,7 +290,6 @@
             const pageId = event.target.closest('a').dataset.page;
             const href = event.target.closest('a').getAttribute('href');
 
-            // Check if the UI is locked
             if (overlay.style.display === 'block') {
                 event.preventDefault();
                 return;
@@ -385,8 +384,17 @@
         letters.n = 'nerd';
         letters.e = 'extra';  
         const pageId = letters[key];
-    
-        if (key >= '1' && key <= '9') {
+        if (key == 'k') {
+            const elements = document.getElementsByClassName('help');
+            for (let i = 0; i < elements.length; i++) {
+                const element = elements[i];
+                if (element.style.display == 'block') {
+                    element.style.display = 'none'; 
+                } else {
+                    element.style.display = 'block';
+                }
+            }
+        } else if (key >= '1' && key <= '9') {
             const currentPageId = window.location.hash.substring(1) || 'home';
             const currentPage = document.getElementById(currentPageId);
             const activeLinks = currentPage.querySelectorAll('.memes-container a');

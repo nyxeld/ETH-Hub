@@ -230,7 +230,7 @@ body {
             text-align: center;
 }
 
-.image-text {
+.image-text, .help {
     position: absolute;
     bottom: 16%;
     left: 50%;
@@ -240,6 +240,13 @@ body {
     font-weight: bold;
     pointer-events: none;
     z-index: 10;
+}
+
+.help {
+    display:none;
+    background-color: rgba(255,255,255,0.8);
+    padding: 10px 15px;
+    border-radius: 5px;
 }
 
 #animation-overlay {
@@ -362,7 +369,6 @@ video {
         height: auto;
     }
 
-    .image-text {
         font-size: 7vw;
     }
 
@@ -384,7 +390,7 @@ video {
       width: calc(25vw - 18px);
     }
 
-    .image-text {
+    .image-text, .help {
         font-size: 3vw;
     }
     
