@@ -368,7 +368,7 @@ video {
         width: calc(50vw - 25px);
         height: auto;
     }
-
+    .image-text, .help {
         font-size: 7vw;
     }
 
