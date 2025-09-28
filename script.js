@@ -196,19 +196,17 @@
     });
 
     const animateTransition = (pageId, href, imgElement) => {
-        // Check if the UI is locked
         if (overlay.style.display === 'block') {
             return;
         }
 
-        lockUI(); // Lock the UI at the start of the animation
+        lockUI();
 
         resetOtherMemeImages(imgElement);
         animatedImage = imgElement;
 
         originalParent = animatedImage.parentNode;
 
-        //Make the placeholder to make sure the formatting stays consistent
         const computedStyle = window.getComputedStyle(animatedImage);
         const rect = animatedImage.getBoundingClientRect();
 
