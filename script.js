@@ -17,6 +17,8 @@
         animatablePages = ['mathe', 'AC', 'physik', 'OC', 'bio', 'nerd', 'extra'];
     } else if (window.location.href.includes('/zweiti')) {
         animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'extra'];
+    } else if (window.location.href.includes('/dritti')) {
+        animatablePages = ['biochem', 'bioinfo', 'lab', 'health-disease', 'sysbio', 'nerd', 'extra'];
     }
     
     let animatedImage = null;
@@ -378,6 +380,16 @@
                 'b': 'bio',
                 'a': 'bioanalytics',
             };
+            
+        } else if (window.location.href.includes('/dritti')) {
+            letters = {
+                'c': 'biochem',
+                'i': 'bioinfo',
+                'l': 'lab',
+                'h': 'health-disease',
+                's': 'sysbio'
+            };
+            
         } else return;
         letters.n = 'nerd';
         letters.e = 'extra';  
