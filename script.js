@@ -15,9 +15,9 @@
     let animatablePages = []; 
     if (window.location.href.includes('/ersti')) {
         animatablePages = ['mathe', 'AC', 'physik', 'OC', 'bio', 'nerd', 'extra'];
-    } else if (window.location.href.includes('/zweiti')) {
+    } else if (window.location.href.includes('/zweiti/hs')) {
         animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'extra'];
-    } else if (window.location.href.includes('/dritti')) {
+    } else if (window.location.href.includes('/zweiti/#')) {
         animatablePages = ['biochem', 'bioinfo', 'lab', 'health-disease', 'sysbio', 'nerd', 'extra'];
     }
     
@@ -371,7 +371,7 @@
                 'p': 'physik',
                 'b': 'bio',
             };
-        } else if (window.location.href.includes('/zweiti')) {
+        } else if (window.location.href.includes('/zweiti/hs')) {
             letters = {
                 'i': 'informatik',
                 's': 'statistik',
@@ -381,7 +381,7 @@
                 'a': 'bioanalytics',
             };
             
-        } else if (window.location.href.includes('/dritti')) {
+        } else if (window.location.href.includes('/zweiti')) {
             letters = {
                 'c': 'biochem',
                 'i': 'bioinfo',
