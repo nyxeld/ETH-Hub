@@ -258,7 +258,7 @@
                     window.addEventListener('hashchange', hashChangeHandler);
                 }, 0);
             } else if (href) {
-                if (href === "https://webprint.ethz.ch/user?1#page-main" || href === "https://loc-scipeaks.ethz.ch/") {
+                if (href === "https://webprint.ethz.ch/user?1#page-main" || href === "https://loc-scipeaks.ethz.ch/" || href === "http://lovelace-rstudio.ethz.ch/" || href === "http://lovelace-jupyter.ethz.ch/") {
                     const userConfirmed = confirm("Make sure you're on ETH Wi-Fi/VPN and not using another VPN before loading this page.");
                     if (userConfirmed) {
                         window.open(href);
