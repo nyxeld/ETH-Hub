@@ -12,14 +12,7 @@
     overlay.id = 'animation-overlay';
     document.body.appendChild(overlay);
     
-    let animatablePages = []; 
-    if (window.location.href.includes('/ersti')) {
-        animatablePages = ['mathe', 'AC', 'physik', 'OC', 'bio', 'nerd', 'extra'];
-    } else if (window.location.href.includes('/zweiti/hs')) {
-        animatablePages = ['informatik', 'statistik', 'PC', 'OC', 'bio', 'bioanalytics', 'nerd', 'extra'];
-    } else if (window.location.href.includes('/zweiti/#')) {
-        animatablePages = ['biochem', 'bioinfo', 'genetics', 'lab', 'health-disease', 'sysbio', 'nerd', 'extra'];
-    }
+    let animatablePages = ['aqeco', 'evogen', 'immuno', 'microbio']; 
     
     let animatedImage = null;
     let isReversing = false;
