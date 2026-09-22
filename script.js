@@ -12,7 +12,7 @@
     overlay.id = 'animation-overlay';
     document.body.appendChild(overlay);
     
-    let animatablePages = ['aqeco', 'evogen', 'immuno', 'microbio']; 
+    let animatablePages = ['aqeco', 'evogen', 'immuno', 'microbio', 'nerd', 'extra']; 
     
     let animatedImage = null;
     let isReversing = false;
