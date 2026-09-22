@@ -33,11 +33,7 @@
         if (animatedImageElement) {
             imageUrl = animatedImageElement.src;
         } else {
-            if (window.location.href.includes('/ersti') || window.location.href.includes('/zweiti')) {
-                imageUrl = '../img/home.webp';
-            } else {
-                imageUrl = './img/home.webp';
-            }
+            imageUrl = './img/home.webp';
         }
         if (imageUrl) {
             backgroundContainer.style.backgroundImage = `url('${imageUrl}')`;
@@ -356,35 +352,6 @@
         const key = lastKeyPressed;
         lastKeyPressed = null;
         let letters = {};
-        if (window.location.href.includes('/ersti')) {
-            letters = {
-                'm': 'mathe',
-                'o': 'OC',
-                'a': 'AC',
-                'p': 'physik',
-                'b': 'bio',
-            };
-        } else if (window.location.href.includes('/zweiti/hs')) {
-            letters = {
-                'i': 'informatik',
-                's': 'statistik',
-                'p': 'PC',
-                'o': 'OC',
-                'b': 'bio',
-                'a': 'bioanalytics',
-            };
-            
-        } else if (window.location.href.includes('/zweiti')) {
-            letters = {
-                'c': 'biochem',
-                'i': 'bioinfo',
-                'g': 'genetics',
-                'l': 'lab',
-                'm': 'health-disease',
-                's': 'sysbio'
-            };
-            
-        } else return;
         letters.n = 'nerd';
         letters.e = 'extra';  
         const pageId = letters[key];
